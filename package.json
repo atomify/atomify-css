@@ -1,6 +1,6 @@
 {
   "name": "atomify-css",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Atomify your css - use css from node modules and pass it through rework",
   "main": "index.js",
   "scripts": {
@@ -23,6 +23,6 @@
   "dependencies": {
     "rework": "~0.17.3",
     "rework-vars": "~1.0.1",
-    "npm-css": "~0.2.1"
+    "npm-css": "~0.2.2"
   }
 }
