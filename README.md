@@ -17,6 +17,7 @@ The `callback` will be called with an (optional) `error` as it's first argument 
 
 ### Examples
 
+#### Rework
 index.js
 ```js
 var css = require('atomify-css')
@@ -29,9 +30,27 @@ var opts = {
 }
 
 css(opts, function (err, src) {
-  
+
   // do something with the src
-  
+
+})
+```
+#### Stylus
+```js
+var css = require('atomify-css')
+  , stylus = require('stylus')
+
+var opts = {
+  entry: './entry.css'
+, transform: function (str, done) {
+    stylus.render(str, done)
+  }
+}
+
+css(opts, function (err, src) {
+
+  // do something with the src
+
 })
 ```
 
