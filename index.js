@@ -1,11 +1,12 @@
-var npmcss     = require('npm-css')
-  , rework     = require('rework')
-  , variables  = require('rework-vars')
+var importcss = require('rework-npm')
+  , rework = require('rework')
+  , variables = require('rework-vars')
+  , read = require('fs').readFileSync
 
 module.exports = function (opts, cb) {
   opts = opts || {}
-  var file = npmcss(opts.entry)
-  var css = rework(file)
+  var css = rework(read(opts.entry, 'utf8'))
+  css.use(importcss())
   if (opts.variables) {
     css.use(variables(opts.variables))
   }
