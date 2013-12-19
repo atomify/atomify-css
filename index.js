@@ -6,7 +6,7 @@ var importcss = require('rework-npm')
 module.exports = function (opts, cb) {
   opts = opts || {}
   var css = rework(read(opts.entry, 'utf8'))
-  css.use(importcss())
+  css.use(importcss(opts.cwd))
   if (opts.variables) {
     css.use(variables(opts.variables))
   }
