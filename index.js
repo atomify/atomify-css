@@ -11,7 +11,7 @@ module.exports = function (opts, cb) {
 
   // even if variable were not provided
   // use rework-vars to process default values
-  css.use(vars(opts.vars))
+  css.use(vars(opts.variables))
 
   // utilize any custom rework plugins provided
   if (opts.plugins) {
