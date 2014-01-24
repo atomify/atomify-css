@@ -1,6 +1,6 @@
 var importcss = require('rework-npm')
   , rework = require('rework')
-  , variables = require('rework-vars')
+  , vars = require('rework-vars')
   , path = require('path')
   , read = require('fs').readFileSync
 
@@ -8,10 +8,10 @@ module.exports = function (opts, cb) {
   opts = opts || {}
   var css = rework(read(opts.entry, 'utf8'))
   css.use(importcss(path.dirname(opts.entry)))
-  
-  if (opts.variables) {
-    css.use(variables(opts.variables))
-  }
+
+  // even if variable were not provided
+  // use rework-vars to process default values
+  css.use(vars(opts.vars))
 
   // utilize any custom rework plugins provided
   if (opts.plugins) {
