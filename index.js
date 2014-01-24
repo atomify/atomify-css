@@ -12,7 +12,7 @@ module.exports = function (opts, cb) {
     css.use(variables(opts.variables))
   }
   if (opts.transform) {
-    otps.transform(file, cb)
+    opts.transform(file, cb)
   } else {
     cb(null, css.toString())
   }
