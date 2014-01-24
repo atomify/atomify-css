@@ -21,8 +21,8 @@
   "author": "techwraith",
   "license": "MIT",
   "dependencies": {
-    "rework": "~0.17.3",
-    "rework-vars": "~1.0.1",
-    "rework-npm": "~0.1.0"
+    "rework": "~0.20.2",
+    "rework-vars": "~2.0.2",
+    "rework-npm": "~0.3.0"
   }
 }
