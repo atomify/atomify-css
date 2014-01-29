@@ -1,0 +1,12 @@
+#header {
+  color: #4d926f;
+}
+h2 {
+  color: #4d926f;
+}
+.nav > li > a {
+  border: 1px solid #f5f5f5;
+}
+.nav > li > a:hover {
+  border-color: #f00;
+}

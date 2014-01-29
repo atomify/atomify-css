@@ -23,6 +23,7 @@
   "dependencies": {
     "rework": "~0.20.2",
     "rework-vars": "~2.0.2",
-    "rework-npm": "~0.3.0"
+    "rework-npm": "~0.3.0",
+    "npm-less": "~0.3.1"
   }
 }
