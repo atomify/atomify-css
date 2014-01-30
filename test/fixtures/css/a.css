@@ -1,5 +1,3 @@
-body {
-	margin: 0;
+.a {
+	background: blue;
 }
-
-@import "./b";

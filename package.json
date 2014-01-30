@@ -4,7 +4,7 @@
   "description": "Atomify your css - use css from node modules and pass it through rework",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "tape test.js"
   },
   "repository": {
     "type": "git",
@@ -25,5 +25,8 @@
     "rework-vars": "~2.0.2",
     "rework-npm": "~0.3.0",
     "npm-less": "~0.3.1"
+  },
+  "devDependencies": {
+    "tape": "~2.4.0"
   }
 }

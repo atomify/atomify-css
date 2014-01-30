@@ -1,3 +1,5 @@
-button {
-	color: #ddd;
+@import "./a.css";
+
+.b {
+	background: red;
 }
