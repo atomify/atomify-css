@@ -42,3 +42,14 @@ test('transformation', function (t) {
     t.equal(src, correct)
   })
 })
+
+test('opts as string', function (t) {
+  t.plan(1)
+
+  var cfg = path.join(cssFixtures, 'entry.css')
+    , correct = fs.readFileSync(path.join(cssFixtures, 'bundle.css'), 'utf8')
+
+  css(cfg, function (err, src) {
+    t.equal(src, correct)
+  })
+})
