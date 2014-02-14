@@ -64,3 +64,32 @@ test('opts as string', function (t) {
     t.equal(src, correct)
   })
 })
+
+test('opts.output as property', function (t) {
+  t.plan(1)
+
+  var cfg = {
+      entry: path.join(cssFixtures, 'entry.css')
+      , output: path.join(cssFixtures, 'bundle-gen.css')
+    }
+    , correct = fs.readFileSync(path.join(cssFixtures, 'bundle.css'), 'utf8')
+
+  css(cfg)
+
+  setTimeout(function () {
+    t.equal(fs.readFileSync(cfg.output, 'utf8'), correct)
+  }, 250)
+})
+
+test('opts.output as string', function (t) {
+  t.plan(1)
+
+  var correct = fs.readFileSync(path.join(cssFixtures, 'bundle.css'), 'utf8')
+    , output = path.join(cssFixtures, 'bundle-gen.css')
+
+  css(path.join(cssFixtures, 'entry.css'), output)
+
+  setTimeout(function () {
+    t.equal(fs.readFileSync(output, 'utf8'), correct)
+  }, 250)
+})
