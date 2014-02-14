@@ -27,6 +27,17 @@ test('basic less bundling', function (t) {
   })
 })
 
+test('less bundling with module name', function (t) {
+  t.plan(1)
+
+  var cfg = { entry: path.join(lessFixtures, 'entry-with-named-module.less') }
+    , correct = fs.readFileSync(path.join(lessFixtures, 'bundle-with-named-module.css'), 'utf8')
+
+  css(cfg, function (err, src) {
+    t.equal(src, correct)
+  })
+})
+
 test('transformation', function (t) {
   t.plan(1)
 

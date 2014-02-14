@@ -1,0 +1,12 @@
+.a {
+  color: #4d926f;
+}
+.nav > li > a {
+  border: 1px solid #f5f5f5;
+}
+.nav > li > a:hover {
+  border-color: #00ff00;
+}
+.red {
+  color: #FF0000;
+}
