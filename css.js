@@ -17,6 +17,7 @@ module.exports = function (opts, cb) {
   // utilize any custom rework plugins provided
   if (opts.plugins) {
     opts.plugins.forEach(function (plugin) {
+      if (typeof plugin === 'string') plugin = require(plugin)
       css.use(plugin)
     })
   }
