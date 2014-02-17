@@ -93,3 +93,46 @@ test('opts.output as string', function (t) {
     t.equal(fs.readFileSync(output, 'utf8'), correct)
   }, 250)
 })
+
+test('opts.debug generates sourcemap', function (t) {
+  t.plan(1)
+
+  var cfg = {
+      entry: path.join(cssFixtures, 'entry.css')
+      , debug: true
+    }
+    , correct = fs.readFileSync(path.join(cssFixtures, 'bundle-with-sourcemap.css'), 'utf8')
+
+  css(cfg, function (err, src) {
+    t.equal(src, correct)
+  })
+})
+
+test('opts.compress compresses output', function (t) {
+  t.plan(1)
+
+  var cfg = {
+      entry: path.join(cssFixtures, 'entry.css')
+      , compress: true
+    }
+    , correct = fs.readFileSync(path.join(cssFixtures, 'bundle-compressed.css'), 'utf8')
+
+  css(cfg, function (err, src) {
+    t.equal(src, correct)
+  })
+})
+
+test('opts.debug and opts.compress generates sourcemap and compresses', function (t) {
+  t.plan(1)
+
+  var cfg = {
+      entry: path.join(cssFixtures, 'entry.css')
+      , debug: true
+      , compress: true
+    }
+    , correct = fs.readFileSync(path.join(cssFixtures, 'bundle-compressed-with-sourcemap.css'), 'utf8')
+
+  css(cfg, function (err, src) {
+    t.equal(src, correct)
+  })
+})

@@ -22,5 +22,5 @@ module.exports = function (opts, cb) {
     })
   }
 
-  cb(null, css.toString())
+  cb(null, css.toString({sourcemap: opts.debug || opts.sourcemap, compress: opts.compress}))
 }
