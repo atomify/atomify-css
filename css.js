@@ -7,8 +7,9 @@ var importcss = require('rework-npm')
 module.exports = function (opts, cb) {
   opts = opts || {}
 
-  var css = rework(read(opts.entry, 'utf8'))
-  css.use(importcss(path.dirname(opts.entry)))
+  var resolvedEntry = path.resolve(process.cwd(), opts.entry)
+    , css = rework(read(resolvedEntry, 'utf8'))
+  css.use(importcss(path.dirname(resolvedEntry)))
 
   // even if variables were not provided
   // use rework-vars to process default values
