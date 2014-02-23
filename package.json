@@ -1,7 +1,7 @@
 {
   "name": "atomify-css",
   "version": "0.5.2",
-  "description": "Atomify your css - use css from node modules and pass it through rework",
+  "description": "Atomic CSS - Reusable front-end styling using Rework, plugins, and Node's resolve algorithm",
   "main": "index.js",
   "scripts": {
     "test": "tape test.js"
@@ -11,12 +11,11 @@
     "url": "https://github.com/Techwraith/atomify-css.git"
   },
   "keywords": [
-    "css",
-    "rework",
-    "atomify",
-    "npm",
     "atomic",
-    "design"
+    "atomify",
+    "browser",
+    "css",
+    "rework"
   ],
   "contributors": [
     "Daniel Erickson <techwraithpdx@gmail.com> (http://techwraith.com/)",
@@ -25,12 +24,12 @@
   "license": "MIT",
   "dependencies": {
     "rework": "~0.20.2",
-    "rework-vars": "~2.0.2",
-    "rework-npm": "~0.4.0",
+    "rework-vars": "^2.0.3",
+    "rework-npm": "~0.4.1",
     "npm-less": "~0.3.2",
-    "write-to-path": "~0.1.0"
+    "write-to-path": "^1.0.0"
   },
   "devDependencies": {
-    "tape": "~2.4.0"
+    "tape": "^2.5.0"
   }
 }
