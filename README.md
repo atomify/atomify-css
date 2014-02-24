@@ -5,7 +5,7 @@ Atomic CSS - Reusable front-end styling using Rework, plugins, and Node's resolv
 
 ## Description
 
-atomify-css extends Node's well established practice of creating small, reusable modules to CSS by allowing npm (and other) modules to include style data as part of their packages.
+atomify-css extends Node's well established practice of creating small, reusable modules to CSS by allowing npm (and other) modules to include style data as part of their packages. Basically, it makes `@import` work like `require()`.
 
 Using [Rework](https://github.com/reworkcss/rework) for CSS and [less](https://github.com/less/less.js) for LESS, atomify-css brings a [dependency graph to your CSS](http://techwraith.com/your-css-needs-a-dependency-graph-too.html).
 
