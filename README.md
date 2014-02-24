@@ -1,38 +1,73 @@
 atomify-css
 ===============
 
-Atomify your CSS - Use Node's resolution patterns to combine and process CSS or LESS from npm modules. Uses [rework](https://github.com/reworkcss/rework) for CSS and [less](https://github.com/less/less.js) for LESS.
+Atomic CSS - Reusable front-end styling using Rework, plugins, and Node's resolve algorithm
 
-### Description
+## Description
 
-Wouldn't it be nice if npm modules could provide their own CSS as part of their package? And then you could combine them into a dependency tree to build big sets of styles out of lots of small sets of styles like you do with JS? That's what atomify-css does.
+atomify-css extends Node's well established practice of creating small, reusable modules to CSS by allowing npm (and other) modules to include style data as part of their packages.
 
-### Method
+Using [Rework](https://github.com/reworkcss/rework) for CSS and [less](https://github.com/less/less.js) for LESS, atomify-css brings a [dependency graph to your CSS](http://techwraith.com/your-css-needs-a-dependency-graph-too.html).
 
-atomify-css takes an `opts` object and a `callback`.
+### Default Rework plugins
 
-The `opts` object must contain an `entry` key that is the relative path (from `process.cwd()`) to the entry file. If `opts.entry` is a CSS file it will be processed with Rework. If it's a LESS file it will be processed with less.
+ * [rework-npm](https://github.com/conradz/rework-npm) - Brings Node's resolve behavior to CSS, making `@import` work like `require()` (e.g. named modules)
+ * [rework-vars](https://github.com/reworkcss/rework-vars) - Provides W3C-style CSS variables syntax for CSS files
+ * [npm-less](https://github.com/Raynos/npm-less) - Adds support for Node-style resolution, making `@import` work like `require()` for LESS files.
 
-The `callback` will be called with an (optional) `error` as it's first argument and the atomified CSS bundle as the second argument.
+## API
 
-When using Rework, you can also provide `opts.variables` (a hash) and `opts.plugins` (an array) properties. `opts.variables` will be passed to [rework-vars](https://npmjs.org/package/rework-vars), and each item in `opts.plugins` will be passed to the `use()` method of Rework.
+In its default form, atomify-css takes an `opts` object and a `callback` function.
 
-If you want to transform the bundled output before it is returned to `opts.callback` you can provide an `opts.transform` function to do so.
+While you may use atomify-css with CSS or LESS, you cannot combine the two at this time. atomify-css determines which technology you are using by examining the file extension of the entry file you provide.
 
-### Examples
+### opts 
 
-#### Rework
+**opts.entry** - Path that will be provided to Rework as the entry point. For convenience, you may simply provide a string in place of the `opts` object, which will be treated as the `entry` property. The path will be resolved relative to `process.cwd()`.
 
+**opts.transform** - A synchronous transformation function that will be run as the final processing step. String in, string out.
+
+**opts.output** - If you simply want your bundle written out to a file, provide the path in this property. Note that your `callback` will NOT be called if this property is present. Path will be resolved relative to `process.cwd()`.
+
+### opts for CSS workflows
+
+**opts.variables** - An object hash that will be provided to [rework-vars](https://github.com/reworkcss/rework-vars) to replace any vars defined in your CSS.
+
+**opts.plugins** - An array of Rework plugins to `use()` in addition to the defaults listed above. If provided as a string, the plugin name will be passed to `require()` and the result passed to `use()`.
+
+**opts.debug** or **opts.sourcemap** - Passed to the `toString()` method of Rework to generate source maps if `true`. Also provides additional CLI output, if applicable.
+
+**opts.compress** - Compress (remove whitespace from) CSS output.
+
+### opts for LESS workflows
+
+The entire `opts` object is passed to the `toCSS()` method of the LESS Parser, so any options it supports can be used.
+
+### callback
+
+Standard bundle callback with `cb(err, src)` signature. Not called if `opts.output` is specifed. If `callback` is provided as a string rather than function reference it will be used as the `opts.output` file path.
+
+## Examples
+
+```css
+/* entry.css */
+
+@import "./global.css";
+@import "./inputs.css";
+@import "auth-form";
+
+body {
+  background: var(bg);
+}
 ```
-// index.js
 
+```js
+// build.js
 var css = require('atomify-css')
 
 var opts = {
-  entry: __dirname + '/entry.css'
-, variables: {
-    bg: 'black'
-  }
+  entry: './entry.css'
+, debug: true // default: `false`
 }
 
 css(opts, function (err, src) {
@@ -40,20 +75,16 @@ css(opts, function (err, src) {
 })
 ```
 
-```
-/* entry.css */
+OR
 
-@import "./global.css";
-@import "combobox";
-@import "./inputs.css";
+```js
+var css = require('atomify-css')
 
-body {
-  background: var(bg);
-}
+css('./entry.css', './bundle.css')
 ```
 
-### Install
+## Install
 
-```
+```bash
 npm install atomify-css
 ```
