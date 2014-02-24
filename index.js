@@ -6,7 +6,6 @@ var css = require('./css')
 module.exports = function (opts, cb) {
   if (typeof opts === 'string') opts = {entry: opts};
   if (typeof cb === 'string') opts.output = cb;
-  opts = opts || {}
 
   if (opts.entry.substr(-4) === 'less') {
     less(opts, complete)
