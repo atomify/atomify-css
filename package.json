@@ -1,6 +1,6 @@
 {
   "name": "atomify-css",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "Atomic CSS - Reusable front-end styling using Rework, plugins, and Node's resolve algorithm",
   "main": "index.js",
   "scripts": {
@@ -15,7 +15,7 @@
     "atomify",
     "browser",
     "css",
-	"less",
+    "less",
     "rework"
   ],
   "contributors": [
