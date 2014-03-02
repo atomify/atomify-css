@@ -15,6 +15,7 @@
     "atomify",
     "browser",
     "css",
+	"less",
     "rework"
   ],
   "contributors": [
