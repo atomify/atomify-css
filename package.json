@@ -28,7 +28,8 @@
     "rework-vars": "^2.0.3",
     "rework-npm": "~0.4.1",
     "npm-less": "~0.3.2",
-    "write-to-path": "^1.0.0"
+    "write-to-path": "^1.0.0",
+    "node-sass": "^0.8.1"
   },
   "devDependencies": {
     "tape": "^2.5.0"
