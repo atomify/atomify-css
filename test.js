@@ -72,6 +72,17 @@ test('sass bundling with css dependency', function (t) {
   })
 })
 
+test('css bundling with sass dependency', function (t) {
+  t.plan(1)
+
+  var cfg = { entry: path.join(cssFixtures, 'entry-with-sass-dependency.css') }
+    , correct = fs.readFileSync(path.join(cssFixtures, 'bundle-with-sass-dependency.css'), 'utf8')
+
+  css(cfg, function (err, src) {
+    t.equal(src, correct)
+  })
+})
+
 test('transformation', function (t) {
   t.plan(1)
 
