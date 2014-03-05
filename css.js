@@ -19,6 +19,7 @@ module.exports = function (opts, cb) {
   if (opts.plugins) {
     opts.plugins.forEach(function (plugin) {
       if (typeof plugin === 'string') plugin = require(plugin)
+      if (Array.isArray(plugin)) plugin = require(plugin[0]).apply(null, plugin.slice(1))
       css.use(plugin)
     })
   }

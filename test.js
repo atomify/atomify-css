@@ -170,3 +170,19 @@ test('opts.debug and opts.compress generates sourcemap and compresses', function
     t.equal(src, correct)
   })
 })
+
+test('plugins are configurable', function (t) {
+  t.plan(1)
+
+  var cfg = {
+      entry: path.join(cssFixtures, 'entry-with-inline.css')
+      , plugins: [
+        ['rework/lib/plugins/inline', __dirname + '/test']
+      ]
+    }
+    , correct = fs.readFileSync(path.join(cssFixtures, 'bundle-with-inline.css'), 'utf8')
+
+  css(cfg, function (err, src) {
+    t.equal(src, correct)
+  })
+})
