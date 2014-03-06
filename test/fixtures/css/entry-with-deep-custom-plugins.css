@@ -1,0 +1,11 @@
+.app {
+  color: "red";
+}
+
+.app-clone {
+  clone: .app;
+}
+
+@import "./some/other/parent/styles.css";
+
+@import "child";

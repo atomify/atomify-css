@@ -1,0 +1,32 @@
+.app {
+  color: "red";
+}
+
+.app-clone {
+  color: "red";
+}
+
+.some-other-parent-style {
+  color: seagreen;
+}
+
+.other-clone {
+  color: seagreen;
+}
+
+.child {
+  width: 100px;
+}
+
+.other-child {
+  height: 66px;
+}
+
+.grandchild {
+  width: 25px;
+}
+
+.nested-grandchild-style {
+  color: lightpink;
+  width: 100em;
+}

@@ -1,15 +1,24 @@
-var importcss = require('rework-npm')
-  , rework = require('rework')
+var rework = require('rework')
+  , npm = require('rework-npm')
   , vars = require('rework-vars')
   , path = require('path')
-  , read = require('fs').readFileSync
+  , fs = require('fs')
+  , resolve = require('resolve')
+  , pkg = require('package-lookup')
+  , read = function (f) {
+    return fs.readFileSync(f, 'utf8')
+  }
 
 module.exports = function (opts, cb) {
   opts = opts || {}
 
   var resolvedEntry = path.resolve(process.cwd(), opts.entry)
-    , css = rework(read(resolvedEntry, 'utf8'))
-  css.use(importcss(path.dirname(resolvedEntry)))
+    , css = rework(read(resolvedEntry))
+
+  css.use(npm({
+    dir: path.dirname(resolvedEntry)
+    , prefilter: prefilter
+  }))
 
   // even if variables were not provided
   // use rework-vars to process default values
@@ -18,9 +27,7 @@ module.exports = function (opts, cb) {
   // utilize any custom rework plugins provided
   if (opts.plugins) {
     opts.plugins.forEach(function (plugin) {
-      if (typeof plugin === 'string') plugin = require(plugin)
-      if (Array.isArray(plugin)) plugin = require(plugin[0]).apply(null, plugin.slice(1))
-      css.use(plugin)
+      css.use(getPlugin(plugin, path.dirname(resolvedEntry)))
     })
   }
 
@@ -28,4 +35,39 @@ module.exports = function (opts, cb) {
     sourcemap: opts.debug || opts.sourcemap
     , compress: opts.compress
   }))
+}
+
+function getPlugin (plugin, basedir) {
+  var pluginName
+    , pluginArgs
+    , pluginPath
+
+  if (typeof plugin === 'string') pluginName = plugin
+
+  if (Array.isArray(plugin)) {
+    pluginName = plugin[0]
+    pluginArgs = plugin.slice(1)
+  }
+
+  pluginPath = resolve.sync(pluginName, {basedir: basedir})
+
+  if (pluginArgs) {
+    return require(pluginPath).apply(null, pluginArgs)
+  } else {
+    return require(pluginPath)
+  }
+}
+
+function prefilter (src, filename) {
+  var config = pkg.resolve(filename).atomify
+
+  if (config && config.css && config.css.plugins) {
+    var css = rework(src);
+    config.css.plugins.forEach(function (plugin) {
+      css.use(getPlugin(plugin, path.dirname(filename)))
+    })
+    return css.toString()
+  }
+
+  return src
 }

@@ -186,3 +186,19 @@ test('plugins are configurable', function (t) {
     t.equal(src, correct)
   })
 })
+
+test('descendant modules can specify custom plugins', function (t) {
+  t.plan(1)
+
+  var cfg = {
+      entry: path.join(cssFixtures, 'entry-with-deep-custom-plugins.css')
+      , plugins: [
+        ['rework-clone']
+      ]
+    }
+    , correct = fs.readFileSync(path.join(cssFixtures, 'bundle-with-deep-custom-plugins.css'), 'utf8')
+
+  css(cfg, function (err, src) {
+    t.equal(src, correct)
+  })
+})

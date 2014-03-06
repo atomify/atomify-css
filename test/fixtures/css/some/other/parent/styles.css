@@ -1,0 +1,7 @@
+.some-other-parent-style {
+  color: seagreen;
+}
+
+.other-clone {
+  clone: .some-other-parent-style;
+}
