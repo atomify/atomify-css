@@ -56,9 +56,9 @@ Standard bundle callback with `cb(err, src)` signature. Not called if `opts.outp
 
 We have essentially implemented the [transformKey syntax from module-deps](https://github.com/substack/module-deps#packagejson-transformkey), meaning plugin configuration closely mimics transform configuration in Browserify. The following list shows how keys in your `atomify.css.plugins` array will be mapped to code.
 
- * "rework-default-unit" maps to `require('rework-default-unit')`
- * ["rework-clone"] maps to `require('rework-clone')()`
- * ["rework-plugin-inline", "src/assets"] maps to `require('rework-plugin-inline')('src/assets')`
+ * `"rework-default-unit"` maps to `require('rework-default-unit')`
+ * `["rework-clone"]` maps to `require('rework-clone')()`
+ * `["rework-plugin-inline", "src/assets"]` maps to `require('rework-plugin-inline')('src/assets')`
  
 In plain English, a string will simply be passed to `require()`, while an array will pass the first element to `require()` and call the resulting function with any remaining elements from the array.
 
