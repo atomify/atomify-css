@@ -9,17 +9,20 @@ atomify-css extends Node's well established practice of creating small, reusable
 
 Using [Rework](https://github.com/reworkcss/rework) for CSS and [less](https://github.com/less/less.js) for LESS, atomify-css brings a [dependency graph to your CSS](http://techwraith.com/your-css-needs-a-dependency-graph-too.html).
 
-### Default Rework plugins
+### Default plugins
 
  * [rework-npm](https://github.com/conradz/rework-npm) - Brings Node's resolve behavior to CSS, making `@import` work like `require()` (e.g. named modules)
  * [rework-vars](https://github.com/reworkcss/rework-vars) - Provides W3C-style CSS variables syntax for CSS files
  * [npm-less](https://github.com/Raynos/npm-less) - Adds support for Node-style resolution, making `@import` work like `require()` for LESS files.
+ * [node-sass](https://github.com/andrew/node-sass) - Adds basic SASS support.
 
 ## API
 
 In its default form, atomify-css takes an `opts` object and a `callback` function.
 
-While you may use atomify-css with CSS or LESS, you cannot combine the two at this time. atomify-css determines which technology you are using by examining the file extension of the entry file you provide.
+While you may use atomify-css with CSS, LESS, or SASS, there are some limitations to how you can combine them. atomify-css determines which technology you are using based on the file extension of your entry file. At this time the only mixing supported is that the SASS workflow can `@import` plain CSS files.
+
+The workaround for this limitation is to preprocess everything to CSS before passing to atomify-css.
 
 ### opts 
 
@@ -33,7 +36,7 @@ While you may use atomify-css with CSS or LESS, you cannot combine the two at th
 
 **opts.variables** - An object hash that will be provided to [rework-vars](https://github.com/reworkcss/rework-vars) to replace any vars defined in your CSS.
 
-**opts.plugins** - An array of Rework plugins to `use()` in addition to the defaults listed above. If provided as a string, the plugin name will be passed to `require()` and the result passed to `use()`.
+**opts.plugins** - An array of Rework plugins to `use()` in addition to the defaults listed above.
 
 **opts.debug** or **opts.sourcemap** - Passed to the `toString()` method of Rework to generate source maps if `true`. Also provides additional CLI output, if applicable.
 
@@ -46,6 +49,18 @@ The entire `opts` object is passed to the `toCSS()` method of the LESS Parser, s
 ### callback
 
 Standard bundle callback with `cb(err, src)` signature. Not called if `opts.output` is specifed. If `callback` is provided as a string rather than function reference it will be used as the `opts.output` file path.
+
+## package.json config
+
+[Configuring atomify in package.json](https://github.com/Techwraith/atomify#packagejson-config) is pretty straightforward, but there is a bit of nuance in how you specify custom Rework plugins. There are a few different ways plugins can be instantiated, depending on the author's preference, but we support them all in a pretty straightforward manner.
+
+We have essentially implemented the [transformKey syntax from module-deps](https://github.com/substack/module-deps#packagejson-transformkey), meaning plugin configuration closely mimics transform configuration in Browserify. The following list shows how keys in your `atomify.css.plugins` array will be mapped to code.
+
+ * "rework-default-unit" maps to `require('rework-default-unit')`
+ * ["rework-clone"] maps to `require('rework-clone')()`
+ * ["rework-plugin-inline", "src/assets"] maps to `require('rework-plugin-inline')('src/assets')`
+ 
+In plain English, a string will simply be passed to `require()`, while an array will pass the first element to `require()` and call the resulting function with any remaining elements from the array.
 
 ## Examples
 
