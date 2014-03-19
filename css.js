@@ -1,6 +1,7 @@
 var rework = require('rework')
   , npm = require('rework-npm')
   , vars = require('rework-vars')
+  , assets = require('rework-assets')
   , path = require('path')
   , fs = require('fs')
   , resolve = require('resolve')
@@ -23,6 +24,14 @@ module.exports = function (opts, cb) {
   // even if variables were not provided
   // use rework-vars to process default values
   css.use(vars(opts.variables))
+
+  if (opts.assets) {
+    css.use(assets({
+      src: path.dirname(resolvedEntry)
+      , dest: opts.assets.dest || ''
+      , prefix: opts.assets.prefix || ''
+    }))
+  }
 
   // utilize any custom rework plugins provided
   if (opts.plugins) {

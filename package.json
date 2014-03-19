@@ -31,7 +31,8 @@
     "write-to-path": "^1.0.0",
     "node-sass": "^0.8.1",
     "resolve": "^0.6.1",
-    "package-lookup": "^0.1.2"
+    "package-lookup": "^0.1.2",
+    "rework-assets": "^0.1.1"
   },
   "devDependencies": {
     "tape": "^2.5.0",
