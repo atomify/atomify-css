@@ -4,7 +4,7 @@
   "description": "Atomic CSS - Reusable front-end styling using Rework, plugins, and Node's resolve algorithm",
   "main": "index.js",
   "scripts": {
-    "test": "tape test.js"
+    "test": "tape test.js | tspec"
   },
   "repository": {
     "type": "git",
@@ -34,6 +34,7 @@
     "package-lookup": "^0.1.2"
   },
   "devDependencies": {
-    "tape": "^2.5.0"
+    "tape": "^2.5.0",
+    "tap-spec": "^0.1.5"
   }
 }
