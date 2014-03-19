@@ -171,6 +171,23 @@ test('opts.debug and opts.compress generates sourcemap and compresses', function
   })
 })
 
+test('opts.assets', function (t) {
+  t.plan(1)
+
+  var cfg = {
+      entry: path.join(cssFixtures, 'entry-with-asset.css')
+      , assets: {
+        dest: path.join(cssFixtures, 'assets/images')
+        , prefix: 'assets/images/'
+      }
+    }
+    , correct = fs.readFileSync(path.join(cssFixtures, 'bundle-with-asset.css'), 'utf8')
+
+  css(cfg, function (err, src) {
+    t.equal(src, correct)
+  })
+})
+
 test('plugins are configurable', function (t) {
   t.plan(1)
 
