@@ -1,0 +1,2 @@
+/* try to import a missing file */
+@import "./file-does-not-exist";

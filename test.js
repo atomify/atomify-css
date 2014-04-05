@@ -219,3 +219,27 @@ test('descendant modules can specify custom plugins', function (t) {
     t.equal(src, correct)
   })
 })
+
+test('handle importing errors', function (t) {
+  t.plan(1)
+  
+  var cfg = {
+    entry: path.join(cssFixtures, 'import-missing.css')
+  }
+  
+  css(cfg, function (err) {
+    t.ok(err instanceof Error, 'called callback with error')
+  })
+})
+
+test('handle entry missing error', function (t) {
+  t.plan(1)
+  
+  var cfg = {
+    entry: path.join(cssFixtures, 'file-does-not-exist.css')
+  }
+  
+  css(cfg, function (err) {
+    t.ok(err instanceof Error, 'called callback with error')
+  })
+})
