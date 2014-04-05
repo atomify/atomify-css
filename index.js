@@ -17,7 +17,7 @@ module.exports = function (opts, cb) {
   }
 
   function complete (err, src) {
-    if (err) throw err
+    if (err) return cb(err)
 
     if (opts.transform) src = opts.transform(src)
 

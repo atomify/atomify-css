@@ -12,7 +12,18 @@ var rework = require('rework')
 
 module.exports = function (opts, cb) {
   opts = opts || {}
+  
+  var src
+  try {
+    src = bundle(opts)
+  } catch (err) {
+    return process.nextTick(function () { cb(err) })
+  }
+  
+  process.nextTick(function () { cb(null, src) })
+}
 
+function bundle (opts) {
   var resolvedEntry = path.resolve(process.cwd(), opts.entry)
     , css = rework(read(resolvedEntry))
 
@@ -40,10 +51,10 @@ module.exports = function (opts, cb) {
     })
   }
 
-  cb(null, css.toString({
+  return css.toString({
     sourcemap: opts.debug || opts.sourcemap
     , compress: opts.compress
-  }))
+  })
 }
 
 function getPlugin (plugin, basedir) {
