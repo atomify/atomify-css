@@ -14,15 +14,12 @@ Using [Rework](https://github.com/reworkcss/rework) for CSS and [less](https://g
  * [rework-npm](https://github.com/conradz/rework-npm) - Brings Node's resolve behavior to CSS, making `@import` work like `require()` (e.g. named modules)
  * [rework-vars](https://github.com/reworkcss/rework-vars) - Provides W3C-style CSS variables syntax for CSS files
  * [npm-less](https://github.com/Raynos/npm-less) - Adds support for Node-style resolution, making `@import` work like `require()` for LESS files.
- * [node-sass](https://github.com/andrew/node-sass) - Adds basic SASS support.
 
 ## API
 
 In its default form, atomify-css takes an `opts` object and a `callback` function.
 
-While you may use atomify-css with CSS, LESS, or SASS, there are some limitations to how you can combine them. atomify-css determines which technology you are using based on the file extension of your entry file. At this time the only mixing supported is that the SASS workflow can `@import` plain CSS files.
-
-The workaround for this limitation is to preprocess everything to CSS before passing to atomify-css.
+While you may use atomify-css with CSS or LESS, you cannot combine them in the same workflow. The workaround for this limitation is to preprocess everything to CSS before passing to atomify-css.
 
 ### opts 
 
