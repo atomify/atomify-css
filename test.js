@@ -4,7 +4,6 @@ var test = require('tape')
   , css = require('./')
   , cssFixtures = __dirname + '/test/fixtures/css/'
   , lessFixtures = __dirname + '/test/fixtures/less/'
-  , sassFixtures = __dirname + '/test/fixtures/sass/'
 
 test('basic css bundling', function (t) {
   t.plan(1)
@@ -28,44 +27,11 @@ test('basic less bundling', function (t) {
   })
 })
 
-test('basic sass bundling', function (t) {
-  t.plan(1)
-
-  var cfg = { entry: path.join(sassFixtures, 'entry.scss') }
-    , correct = fs.readFileSync(path.join(sassFixtures, 'bundle.css'), 'utf8')
-
-  css(cfg, function (err, src) {
-    t.equal(src, correct)
-  })
-})
-
 test('less bundling with module name', function (t) {
   t.plan(1)
 
   var cfg = { entry: path.join(lessFixtures, 'entry-with-named-module.less') }
     , correct = fs.readFileSync(path.join(lessFixtures, 'bundle-with-named-module.css'), 'utf8')
-
-  css(cfg, function (err, src) {
-    t.equal(src, correct)
-  })
-})
-
-test('sass bundling with module name', function (t) {
-  t.plan(1)
-
-  var cfg = { entry: path.join(sassFixtures, 'entry-with-named-module.scss') }
-    , correct = fs.readFileSync(path.join(sassFixtures, 'bundle-with-named-module.css'), 'utf8')
-
-  css(cfg, function (err, src) {
-    t.equal(src, correct)
-  })
-})
-
-test('sass bundling with css dependency', function (t) {
-  t.plan(1)
-
-  var cfg = { entry: path.join(sassFixtures, 'entry-with-css-dependency.scss') }
-    , correct = fs.readFileSync(path.join(sassFixtures, 'bundle-with-css-dependency.css'), 'utf8')
 
   css(cfg, function (err, src) {
     t.equal(src, correct)
@@ -222,11 +188,11 @@ test('descendant modules can specify custom plugins', function (t) {
 
 test('handle importing errors', function (t) {
   t.plan(1)
-  
+
   var cfg = {
     entry: path.join(cssFixtures, 'import-missing.css')
   }
-  
+
   css(cfg, function (err) {
     t.ok(err instanceof Error, 'called callback with error')
   })
@@ -234,11 +200,11 @@ test('handle importing errors', function (t) {
 
 test('handle entry missing error', function (t) {
   t.plan(1)
-  
+
   var cfg = {
     entry: path.join(cssFixtures, 'file-does-not-exist.css')
   }
-  
+
   css(cfg, function (err) {
     t.ok(err instanceof Error, 'called callback with error')
   })

@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Techwraith/atomify-css.git"
+    "url": "https://github.com/atomify/atomify-css.git"
   },
   "keywords": [
     "atomic",
@@ -29,7 +29,6 @@
     "rework-npm": "~0.6.1",
     "npm-less": "~0.3.2",
     "write-to-path": "^1.0.0",
-    "node-sass": "^0.8.1",
     "resolve": "^0.6.1",
     "package-lookup": "^0.1.2",
     "rework-assets": "^0.1.1"
