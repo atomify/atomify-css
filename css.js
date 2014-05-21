@@ -79,9 +79,9 @@ function getPlugin (plugin, basedir) {
 }
 
 function prefilter (src, filename) {
-  var config = pkg.resolve(filename).atomify
+  var config = pkg.resolve(filename)
 
-  if (config && config.css && config.css.plugins) {
+  if (config && config.atomify && config.atomify.css && config.atomify.css.plugins) {
     var css = rework(src);
     config.css.plugins.forEach(function (plugin) {
       css.use(getPlugin(plugin, path.dirname(filename)))
