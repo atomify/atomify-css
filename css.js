@@ -83,7 +83,7 @@ function prefilter (src, filename) {
 
   if (config && config.atomify && config.atomify.css && config.atomify.css.plugins) {
     var css = rework(src);
-    config.css.plugins.forEach(function (plugin) {
+    config.atomify.css.plugins.forEach(function (plugin) {
       css.use(getPlugin(plugin, path.dirname(filename)))
     })
     return css.toString()
