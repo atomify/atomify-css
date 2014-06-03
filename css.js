@@ -4,13 +4,14 @@ var rework = require('rework')
   , assets = require('rework-assets')
   , path = require('path')
   , fs = require('fs')
+  , events = require('events')
   , resolve = require('resolve')
   , pkg = require('package-lookup')
   , read = function (f) {
     return fs.readFileSync(f, 'utf8')
   }
 
-module.exports = function (opts, cb) {
+var ctor = module.exports = function (opts, cb) {
   opts = opts || {}
   
   var src
@@ -22,6 +23,8 @@ module.exports = function (opts, cb) {
   
   process.nextTick(function () { cb(null, src) })
 }
+
+ctor.emitter = new events.EventEmitter()
 
 function bundle (opts) {
   var resolvedEntry = path.resolve(process.cwd(), opts.entry)
@@ -80,6 +83,8 @@ function getPlugin (plugin, basedir) {
 
 function prefilter (src, filename) {
   var config = pkg.resolve(filename)
+
+  ctor.emitter.emit('file', filename)
 
   if (config && config.atomify && config.atomify.css && config.atomify.css.plugins) {
     var css = rework(src);
