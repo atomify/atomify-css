@@ -39,6 +39,37 @@ While you may use atomify-css with CSS or LESS, you cannot combine them in the s
 
 **opts.compress** - Compress (remove whitespace from) CSS output.
 
+**opts.assets** - One of the challenges with writing truly modular code is that your stylesheets often refer to assets that need to be accessible from your final bundle. Configuring this option solves that problem by detecting asset paths in your CSS files, copying the assets to a new location, and rewriting the references to them to use the new paths. Paths in `url()` statements will be processed according to your configuration.
+
+The processing is configured using two sub-properties of opts.assets: `dest` and `prefix`. The `dest` field determines the location files will be copied to, relative to `process.cwd()`, and `prefix` specifies what will be prepended to the new file names in the rewritten `url()` calls. The filenames are generated from a hash of the assets themselves, so you don't have to worry about name collisions.
+
+To demonstrate, see the following example.
+
+```js
+// config
+{
+  entry: './entry.css',
+  output: 'dist/bundle.css',
+  ...
+  assets: {
+    dest: 'dist/assets',
+    prefix: 'assets/'
+  }
+}
+```
+
+```css
+background: url("src/images/background.jpg");
+```
+
+becomes
+
+```css
+background: url("assets/4314d804f81c8510.jpg");
+```
+
+and a copy of background.jpg will now exist at `dist/assets/4314d804f81c8510.jpg`
+
 ### opts for LESS workflows
 
 The entire `opts` object is passed to the `toCSS()` method of the LESS Parser, so any options it supports can be used.
