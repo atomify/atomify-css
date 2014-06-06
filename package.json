@@ -24,14 +24,14 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "rework": "~0.20.2",
-    "rework-vars": "^2.0.3",
-    "rework-npm": "~0.6.1",
     "npm-less": "~0.3.2",
-    "write-to-path": "^1.0.0",
-    "resolve": "^0.6.1",
     "package-lookup": "^0.1.2",
-    "rework-assets": "^0.1.1"
+    "resolve": "^0.6.1",
+    "rework": "~0.20.2",
+    "rework-assets": "^0.2.0",
+    "rework-npm": "~0.6.1",
+    "rework-vars": "^2.0.3",
+    "write-to-path": "^1.0.0"
   },
   "devDependencies": {
     "tape": "^2.5.0",
