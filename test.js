@@ -94,6 +94,23 @@ test('opts.output as string', function (t) {
   }, 250)
 })
 
+test('providing output property and callback writes file and calls callback', function (t) {
+  t.plan(2)
+
+  var cfg = {
+      entry: path.join(cssFixtures, 'entry.css')
+      , output: path.join(cssFixtures, 'bundle-gen.css')
+    }
+    , correct = fs.readFileSync(path.join(cssFixtures, 'bundle.css'), 'utf8')
+
+  if (fs.existsSync(cfg.output)) fs.unlinkSync(cfg.output)
+
+  css(cfg, function (err, src) {
+    t.ok(fs.existsSync(cfg.output), 'file written')
+    t.equal(src, correct)
+  })
+})
+
 test('opts.debug generates sourcemap', function (t) {
   t.plan(1)
 

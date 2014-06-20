@@ -14,15 +14,24 @@ module.exports = function (opts, cb) {
   }
 
   function complete (err, src) {
-    if (err && opts.output) throw err
-    if (err) return cb(err)
-
-    if (opts.transform) src = opts.transform(src)
+    if (opts.transform && !err) src = opts.transform(src)
 
     if (opts.output) {
-      writer(path.resolve(process.cwd(), opts.output), {debug: opts.debug})(null, src)
-    } else {
-      cb(null, src)
+      // we definitely have to write the file
+      var writeFile = writer(path.resolve(process.cwd(), opts.output), {debug: opts.debug})
+
+      // we might need to call a callback also
+      if (typeof cb === 'function') {
+        var _cb = cb
+        cb = function (err, src) {
+          writeFile(err, src)
+          _cb(err, src)
+        }
+      } else {
+        cb = writeFile
+      }
     }
+
+    cb(err, src)
   }
 }
