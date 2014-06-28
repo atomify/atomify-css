@@ -1,6 +1,8 @@
 var css = require('./css')
   , less = require('./less')
+  , fs = require('fs')
   , path = require('path')
+  , mkdirp = require('mkdirp')
   , writer = require('write-to-path')
 
 module.exports = function (opts, cb) {
@@ -18,7 +20,11 @@ module.exports = function (opts, cb) {
 
     if (opts.output) {
       // we definitely have to write the file
-      var writeFile = writer(path.resolve(process.cwd(), opts.output), {debug: opts.debug})
+      var outputPath = path.resolve(process.cwd(), opts.output)
+        , outputDir = path.dirname(outputPath)
+        , writeFile = writer(outputPath, {debug: opts.debug})
+
+      if (!fs.existsSync(outputDir)) mkdirp.sync(outputDir)
 
       // we might need to call a callback also
       if (typeof cb === 'function') {
