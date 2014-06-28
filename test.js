@@ -226,3 +226,18 @@ test('handle entry missing error', function (t) {
     t.ok(err instanceof Error, 'called callback with error')
   })
 })
+
+test('output to non-existent directory', function (t) {
+  t.plan(1)
+
+  var correct = fs.readFileSync(path.join(cssFixtures, 'bundle.css'), 'utf8')
+    , output = path.join(cssFixtures, 'new-dir', 'bundle-new-dir.css')
+
+  if (fs.existsSync(output)) fs.unlinkSync(output)
+
+  css(path.join(cssFixtures, 'entry.css'), output)
+
+  setTimeout(function () {
+    t.equal(fs.readFileSync(output, 'utf8'), correct)
+  }, 250)
+})
