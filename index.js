@@ -4,12 +4,16 @@ var css = require('./css')
   , path = require('path')
   , mkdirp = require('mkdirp')
   , writer = require('write-to-path')
+  , rework = require('rework')
+  , assets = require('rework-assets')
+  , isLess
 
 module.exports = function (opts, cb) {
   if (typeof opts === 'string') opts = {entry: opts};
   if (typeof cb === 'string') opts.output = cb;
 
   if (opts.entry.substr(-4) === 'less') {
+    isLess = true
     less(opts, complete)
   } else {
     css(opts, complete)
@@ -17,6 +21,21 @@ module.exports = function (opts, cb) {
 
   function complete (err, src) {
     if (opts.transform && !err) src = opts.transform(src)
+
+    if (isLess && opts.assets) {
+      var resolvedPath = path.resolve(process.cwd(), opts.output)
+
+      src = rework(src)
+        .use(assets({
+          src: path.dirname(resolvedPath)
+          , dest: opts.assets.dest || ''
+          , prefix: opts.assets.prefix || ''
+        }))
+        .toString({
+          sourcemap: opts.debug || opts.sourcemap
+          , compress: opts.compress
+        })
+    }
 
     if (opts.output) {
       // we definitely have to write the file
