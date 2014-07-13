@@ -1,0 +1,13 @@
+.a {
+  color: #4d926f;
+  background-image: url("assets/images/5696a30597face4e.png");
+}
+.nav > li > a {
+  border: 1px solid #f5f5f5;
+}
+.nav > li > a:hover {
+  border-color: #00ff00;
+}
+body {
+  background-image: url("assets/images/212cb105d360a9ec.png");
+}

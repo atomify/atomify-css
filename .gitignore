@@ -1,4 +1,5 @@
 node_modules/*
 !test/node_modules
 .idea
-test/fixtures/css/assets/images/53c17288b9723c1d.png
+test/fixtures/css/assets/
+test/fixtures/less/assets/
