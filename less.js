@@ -1,11 +1,12 @@
 var less = require('npm-less/less')
   , path = require('path')
+  , events = require('events')
   , resrc = require('resrcify/custom').resrc
   , regexp = /url\([\"\'](.*?)[\"\']\)/g
   , res
   , assetsConfig
 
-module.exports = function (opts, cb) {
+var ctor = module.exports = function (opts, cb) {
   assetsConfig = opts.assets
 
   less(path.resolve(process.cwd(), opts.entry), {preprocess: preprocess}, function (err, output) {
@@ -15,7 +16,11 @@ module.exports = function (opts, cb) {
   })
 }
 
+ctor.emitter = new events.EventEmitter()
+
 function preprocess (file, src) {
+  ctor.emitter.emit('file', file)
+
   if (!assetsConfig) return src
 
   while ((res = regexp.exec(src)) !== null) {
