@@ -194,7 +194,7 @@ test('plugins are configurable', function (t) {
   var cfg = {
       entry: path.join(cssFixtures, 'entry-with-inline.css')
       , plugins: [
-        ['rework/lib/plugins/inline', __dirname + '/test']
+        ['rework-plugin-inline', __dirname + '/test']
       ]
     }
     , correct = fs.readFileSync(path.join(cssFixtures, 'bundle-with-inline.css'), 'utf8')

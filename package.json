@@ -29,14 +29,15 @@
     "package-lookup": "^0.1.2",
     "resolve": "^0.6.1",
     "resrcify": "^1.0.1",
-    "rework": "~0.20.2",
-    "rework-assets": "^0.2.0",
     "rework-npm": "~0.6.1",
+    "rework": "^1.0.0",
+    "rework-assets": "^1.0.0",
     "rework-vars": "^2.0.3",
     "write-to-path": "^1.0.0"
   },
   "devDependencies": {
-    "tape": "^2.5.0",
-    "tap-spec": "^0.1.5"
+    "rework-plugin-inline": "^1.0.1",
+    "tap-spec": "^0.1.5",
+    "tape": "^2.5.0"
   }
 }
