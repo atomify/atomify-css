@@ -13,14 +13,14 @@ var rework = require('rework')
 
 var ctor = module.exports = function (opts, cb) {
   opts = opts || {}
-  
+
   var src
   try {
     src = bundle(opts)
   } catch (err) {
     return process.nextTick(function () { cb(err) })
   }
-  
+
   process.nextTick(function () { cb(null, src) })
 }
 
@@ -28,11 +28,10 @@ ctor.emitter = new events.EventEmitter()
 
 function bundle (opts) {
   var resolvedEntry = path.resolve(process.cwd(), opts.entry)
-    , css = rework(read(resolvedEntry))
+    , css = rework(read(resolvedEntry), {source: resolvedEntry})
 
   css.use(npm({
-    dir: path.dirname(resolvedEntry)
-    , prefilter: prefilter
+    prefilter: prefilter
   }))
 
   // even if variables were not provided

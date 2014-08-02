@@ -29,9 +29,9 @@
     "package-lookup": "^0.1.2",
     "resolve": "^0.6.1",
     "resrcify": "^1.0.1",
-    "rework-npm": "~0.6.1",
     "rework": "^1.0.0",
     "rework-assets": "^1.0.0",
+    "rework-npm": "^1.0.0",
     "rework-vars": "^2.0.3",
     "write-to-path": "^1.0.0"
   },
