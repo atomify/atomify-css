@@ -30,8 +30,10 @@ module.exports = function (opts, cb) {
       if (typeof cb === 'function') {
         var _cb = cb
         cb = function (err, src) {
-          writeFile(err, src)
-          _cb(err, src)
+          if (err) return _cb(err)
+
+          writeFile(null, src)
+          _cb(null, src)
         }
       } else {
         cb = writeFile
