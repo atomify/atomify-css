@@ -10,9 +10,9 @@ var ctor = module.exports = function (opts, cb) {
   assetsConfig = opts.assets
 
   less(path.resolve(process.cwd(), opts.entry), {preprocess: preprocess}, function (err, output) {
-    if (err) throw err
+    if (err) return process.nextTick(function () { cb(err) })
 
-    cb(null, output.toCSS(opts))
+    process.nextTick(function() { cb(null, output.toCSS(opts)) })
   })
 }
 
