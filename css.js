@@ -31,6 +31,7 @@ function bundle (opts) {
     , css = rework(read(resolvedEntry), {source: resolvedEntry})
 
   css.use(npm({
+    root: path.dirname(resolvedEntry),
     prefilter: prefilter
   }))
 
