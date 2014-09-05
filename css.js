@@ -44,6 +44,7 @@ function bundle (opts) {
       src: path.dirname(resolvedEntry)
       , dest: opts.assets.dest || ''
       , prefix: opts.assets.prefix || ''
+      , retainName: opts.assets.retainName || ''
     }))
   }
 
