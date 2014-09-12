@@ -23,7 +23,7 @@ While you may use atomify-css with CSS or LESS, you cannot combine them in the s
 
 ### opts 
 
-**opts.entry** - Path that will be provided to Rework as the entry point. For convenience, you may simply provide a string in place of the `opts` object, which will be treated as the `entry` property. The path will be resolved relative to `process.cwd()`.
+**opts.entry** or **opts.entrie* - Path or paths that will be provided to Rework as the entry point. For convenience, you may simply provide a string in place of the `opts` object, which will be treated as the `entry` property. The path will be resolved relative to `process.cwd()`.
 
 **opts.transform** - A synchronous transformation function that will be run as the final processing step. String in, string out.
 
@@ -31,7 +31,7 @@ While you may use atomify-css with CSS or LESS, you cannot combine them in the s
 
 ### opts for CSS workflows
 
-**opts.variables** - An object hash that will be provided to [rework-vars](https://github.com/reworkcss/rework-vars) to replace any vars defined in your CSS.
+**opts.variables** - An object hash or a JSON file path that will be provided to [rework-vars](https://github.com/reworkcss/rework-vars) to replace any vars defined in your CSS.
 
 **opts.plugins** - An array of Rework plugins to `use()` in addition to the defaults listed above.
 
