@@ -16,6 +16,18 @@ test('basic css bundling', function (t) {
   })
 })
 
+test('basic multiple css bundling', function (t) {
+    t.plan(1)
+
+    var cfg = { entries: [ path.join(cssFixtures, 'entry.css'), path.join(cssFixtures, 'entry-multi.css')]  }
+        , correct = fs.readFileSync(path.join(cssFixtures, 'bundle-multi.css'), 'utf8');
+
+    css(cfg, function (err, src) {
+        t.equal(src, correct)
+    })
+})
+
+
 test('basic less bundling', function (t) {
   t.plan(1)
 
@@ -36,6 +48,35 @@ test('less bundling with module name', function (t) {
   css(cfg, function (err, src) {
     t.equal(src, correct)
   })
+})
+
+test('css bundling with variables', function (t) {
+    t.plan(1)
+
+    var cfg = { entries: [ path.join(cssFixtures, 'entry-with-var.css') ],
+            variables: {
+                mainColor: '#4170BB',
+                headerColor: '#4170CC'
+            }
+        }
+        , correct = fs.readFileSync(path.join(cssFixtures, 'bundle-with-var.css'), 'utf8');
+
+    css(cfg, function (err, src) {
+        t.equal(src, correct)
+    })
+})
+
+test('css bundling with variables from a json file', function (t) {
+    t.plan(1)
+
+    var cfg = { entries: [ path.join(cssFixtures, 'entry-with-var.css') ],
+            variables: path.join(cssFixtures, 'variables.json')
+        }
+        , correct = fs.readFileSync(path.join(cssFixtures, 'bundle-with-var.css'), 'utf8');
+
+    css(cfg, function (err, src) {
+        t.equal(src, correct)
+    })
 })
 
 test('transformation', function (t) {

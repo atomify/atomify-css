@@ -1,0 +1,5 @@
+@import "./a-with-var.css";
+
+.b {
+    background: var(headerColor);
+}

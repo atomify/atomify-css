@@ -9,10 +9,10 @@ var rework = require('rework')
   , pkg = require('package-lookup')
   , read = function (f) {
     return fs.readFileSync(f, 'utf8')
-  }
+  };
 
 var ctor = module.exports = function (opts, cb) {
-  opts = opts || {}
+  opts = opts || {};
 
   var src
   try {
@@ -27,37 +27,76 @@ var ctor = module.exports = function (opts, cb) {
 ctor.emitter = new events.EventEmitter()
 
 function bundle (opts) {
-  var resolvedEntry = path.resolve(process.cwd(), opts.entry)
-    , css = rework(read(resolvedEntry), {source: resolvedEntry})
+    var entries = [];
+    
+    opts.entries.forEach(function (entry) {
+        var resolvedEntry = resolveFilePath(entry);
 
-  css.use(npm({
-    root: path.dirname(resolvedEntry),
-    prefilter: prefilter
-  }))
+        entries.push(applyRework(opts, resolvedEntry));
+    });
 
-  // even if variables were not provided
-  // use rework-vars to process default values
-  css.use(vars(opts.variables))
+    return entries.join(opts.compress ? '' : '\n');
+}
 
-  if (opts.assets) {
-    css.use(assets({
-      src: path.dirname(resolvedEntry)
-      , dest: opts.assets.dest || ''
-      , prefix: opts.assets.prefix || ''
-    }))
-  }
+function applyRework (opts, resolvedEntry) {
+    var css = rework(read(resolvedEntry), {source: resolvedEntry}),
+        dirName = path.dirname(resolvedEntry);
 
-  // utilize any custom rework plugins provided
-  if (opts.plugins) {
-    opts.plugins.forEach(function (plugin) {
-      css.use(getPlugin(plugin, path.dirname(resolvedEntry)))
-    })
-  }
+    css.use(npm({
+        root: dirName,
+        prefilter: prefilter
+    }));
 
-  return css.toString({
-    sourcemap: opts.debug || opts.sourcemap
-    , compress: opts.compress
-  })
+    parseCSSVariables(css, opts);
+    handleAssets (css, opts, dirName);
+    applyReworkPlugins(css, dirName);
+
+    return css.toString({
+        sourcemap: opts.debug || opts.sourcemap
+        , compress: opts.compress
+    });
+}
+
+function handleAssets (css, opts, dirName) {
+    if (opts.assets) {
+        css.use(assets({
+            src: dirName
+            , dest: opts.assets.dest || ''
+            , prefix: opts.assets.prefix || ''
+        }))
+    }
+}
+
+function applyReworkPlugins(css, opts, dirName) {
+    if (opts.plugins) {
+        opts.plugins.forEach(function (plugin) {
+            css.use(getPlugin(plugin, dirName))
+        })
+    }
+}
+
+function parseCSSVariables(css, opts) {
+    if (typeof opts.variables === 'string') {
+        var variablesFilePath = resolveFilePath(opts.variables);
+        opts.variables = readJSON(variablesFilePath);
+    }
+    // even if variables were not provided
+    // use rework-vars to process default values
+    css.use(vars(opts.variables));
+}
+
+function resolveFilePath(filePath) {
+    return path.resolve(process.cwd(), filePath);
+}
+
+function readJSON (filepath) {
+    var src = read(filepath);
+
+    try {
+        return JSON.parse(src);
+    } catch(e) {
+        throw new Error('Unable to parse "' + filepath + '" file (' + e.message + ').', e);
+    }
 }
 
 function getPlugin (plugin, basedir) {
