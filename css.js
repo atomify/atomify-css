@@ -49,7 +49,7 @@ function applyRework (opts, resolvedEntry) {
 
     parseCSSVariables(css, opts);
     handleAssets (css, opts, dirName);
-    applyReworkPlugins(css, dirName);
+    applyReworkPlugins(css, opts, dirName);
 
     return css.toString({
         sourcemap: opts.debug || opts.sourcemap
