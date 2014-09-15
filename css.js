@@ -63,6 +63,7 @@ function handleAssets (css, opts, dirName) {
             src: dirName
             , dest: opts.assets.dest || ''
             , prefix: opts.assets.prefix || ''
+            , retainName: opts.assets.retainName || ''
         }))
     }
 }
