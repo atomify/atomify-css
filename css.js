@@ -47,8 +47,8 @@ function applyRework (opts, resolvedEntry) {
         prefilter: prefilter
     }));
 
-    parseCSSVariables(css, opts);
-    handleAssets (css, opts, dirName);
+    applyReworkVars(css, opts);
+    applyReworkAssets (css, opts, dirName);
     applyReworkPlugins(css, opts, dirName);
 
     return css.toString({
@@ -57,7 +57,7 @@ function applyRework (opts, resolvedEntry) {
     });
 }
 
-function handleAssets (css, opts, dirName) {
+function applyReworkAssets (css, opts, dirName) {
     if (opts.assets) {
         css.use(assets({
             src: dirName
@@ -76,7 +76,7 @@ function applyReworkPlugins(css, opts, dirName) {
     }
 }
 
-function parseCSSVariables(css, opts) {
+function applyReworkVars(css, opts) {
     if (typeof opts.variables === 'string') {
         var variablesFilePath = resolveFilePath(opts.variables);
         opts.variables = readJSON(variablesFilePath);
