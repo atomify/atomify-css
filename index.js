@@ -1,6 +1,7 @@
 var css = require('./css')
   , less = require('./less')
   , fs = require('fs')
+  , sass = require('./sass')
   , path = require('path')
   , mkdirp = require('mkdirp')
   , writer = require('write-to-path')
@@ -11,6 +12,8 @@ module.exports = function (opts, cb) {
 
   if (opts.entry.substr(-4) === 'less') {
     less(opts, complete)
+  } else if (opts.entry.substr(-4) === 'scss') {
+    sass(opts, complete)
   } else {
     css(opts, complete)
   }
