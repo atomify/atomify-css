@@ -31,7 +31,7 @@ test('basic less bundling', function (t) {
 test('basic sass bundling', function (t) {
   t.plan(1)
 
-  var cfg = { entry: path.join(sassFixtures, 'entry.scss') }
+  var cfg = { entry: path.join(sassFixtures, 'entry.scss'), nodeSassPath: 'node-sass' }
     , correct = fs.readFileSync(path.join(sassFixtures, 'bundle.css'), 'utf8')
 
   css(cfg, function (err, src) {
@@ -53,7 +53,7 @@ test('less bundling with module name', function (t) {
 test('sass bundling with module name', function (t) {
   t.plan(1)
 
-  var cfg = { entry: path.join(sassFixtures, 'entry-with-named-module.scss') }
+  var cfg = { entry: path.join(sassFixtures, 'entry-with-named-module.scss'), nodeSassPath: 'node-sass' }
     , correct = fs.readFileSync(path.join(sassFixtures, 'bundle-with-named-module.css'), 'utf8')
 
   css(cfg, function (err, src) {
@@ -64,7 +64,7 @@ test('sass bundling with module name', function (t) {
 test('sass bundling with css dependency', function (t) {
   t.plan(1)
 
-  var cfg = { entry: path.join(sassFixtures, 'entry-with-css-dependency.scss') }
+  var cfg = { entry: path.join(sassFixtures, 'entry-with-css-dependency.scss'), nodeSassPath: 'node-sass' }
     , correct = fs.readFileSync(path.join(sassFixtures, 'bundle-with-css-dependency.css'), 'utf8')
 
   css(cfg, function (err, src) {

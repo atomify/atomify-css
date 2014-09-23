@@ -26,7 +26,6 @@
   "dependencies": {
     "mkdirp": "^0.5.0",
     "npm-less": "^0.5.0",
-    "node-sass": "^0.8.1",
     "package-lookup": "^0.1.2",
     "resolve": "^0.6.1",
     "resrcify": "^1.0.1",
@@ -37,6 +36,7 @@
     "write-to-path": "^1.0.0"
   },
   "devDependencies": {
+    "node-sass": "^0.9.4",
     "rework-plugin-inline": "^1.0.1",
     "tap-spec": "^0.1.5",
     "tape": "^2.5.0"
