@@ -7,7 +7,7 @@ Atomic CSS - Reusable front-end styling using Rework, plugins, and Node's resolv
 
 atomify-css extends Node's well established practice of creating small, reusable modules to CSS by allowing npm (and other) modules to include style data as part of their packages. Basically, it makes `@import` work like `require()`.
 
-Using [Rework](https://github.com/reworkcss/rework) for CSS and [less](https://github.com/less/less.js) for LESS, atomify-css brings a [dependency graph to your CSS](http://techwraith.com/your-css-needs-a-dependency-graph-too.html).
+Using [Rework](https://github.com/reworkcss/rework) for CSS, [less](https://github.com/less/less.js) for LESS, and optionally [node-sass](https://github.com/sass/node-sass) for SASS, atomify-css brings a [dependency graph to your CSS](http://techwraith.com/your-css-needs-a-dependency-graph-too.html).
 
 ### Default plugins
 
@@ -19,7 +19,7 @@ Using [Rework](https://github.com/reworkcss/rework) for CSS and [less](https://g
 
 In its default form, atomify-css takes an `opts` object and a `callback` function.
 
-While you may use atomify-css with CSS or LESS, you cannot combine them in the same workflow. The workaround for this limitation is to preprocess everything to CSS before passing to atomify-css.
+While you may use atomify-css with CSS, LESS or SASS, you cannot combine them in the same workflow. The workaround for this limitation is to preprocess everything to CSS before passing to atomify-css.
 
 ### opts 
 
@@ -73,6 +73,12 @@ and a copy of background.jpg will now exist at `dist/assets/4314d804f81c8510.jpg
 ### opts for LESS workflows
 
 The entire `opts` object is passed to the `toCSS()` method of the LESS Parser, so any options it supports can be used.
+
+### opts for SASS workflows
+
+atomify-css will compile .scss files but *not .sass files*.
+
+**opts.nodeSassPath** - Path to your global node-sass installation. If you do not have node-sass included in your project this option is required for SASS compilation.
 
 ### callback
 
@@ -130,4 +136,11 @@ css('./entry.css', './bundle.css')
 
 ```bash
 npm install atomify-css
+```
+
+If you want to compile scss files
+
+
+```bash
+npm install -D node-sass
 ```
