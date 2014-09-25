@@ -1,4 +1,5 @@
 var less = require('npm-less/less')
+  , bower = require('bower-less/less')
   , path = require('path')
   , events = require('events')
   , resrc = require('resrcify/custom').resrc
@@ -8,6 +9,8 @@ var less = require('npm-less/less')
 
 var ctor = module.exports = function (opts, cb) {
   assetsConfig = opts.assets
+
+  if(opts.bower) less = bower
 
   less(path.resolve(process.cwd(), opts.entry), {preprocess: preprocess}, function (err, output) {
     if (err) return process.nextTick(function () { cb(err) })

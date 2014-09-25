@@ -1,0 +1,44 @@
+{
+  "name": "rework-clone",
+  "version": "0.1.0",
+  "description": "Clone module for Rework",
+  "main": "index.js",
+  "peerDependencies": {
+    "rework": ">= 0.18.x"
+  },
+  "devDependencies": {
+    "rework": ">= 0.18.x"
+  },
+  "scripts": {
+    "test": "node test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/isquariel/rework-clone.git"
+  },
+  "keywords": [
+    "rework",
+    "css",
+    "clone",
+    "copy",
+    "inherit"
+  ],
+  "author": {
+    "name": "isquariel",
+    "email": "tavsophi@gmail.com",
+    "url": "https://github.com/isquariel"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/isquariel/rework-clone/issues"
+  },
+  "readme": "# rework-clone\n\n[![Build Status](https://travis-ci.org/Isquariel/rework-clone.png?branch=master)](https://travis-ci.org/Isquariel/rework-clone)\n\nThis module clones properties from one rule set to another, unlike\n[rework-inherit](https://github.com/reworkcss/rework-inherit) (rework.extend())\nwhich concatenates the selectors.\n\nDon’t copy anything and everything! Think when you need to inherit and when to\nclone.\n\n## Example\n\n```css\n.a {\n  background: red\n}\n.b {\n  clone: .a;\n}\n```\n\nyields:\n\n```css\n.a {\n  background: red;\n}\n.b {\n  background: red;\n}\n```\n\n## Usage\n\n```js\nvar clone = require('rework-clone');\n\nvar css = rework(inputCSS)\n  .use(clone(options))\n  .toString();\n```\n\n### Options\n\nThis is only one option: `regexp` to replace.\n\n```js\nvar css = rework(inputCSS)\n  .use(clone({regexp: /^foo?$/}))\n  .toString();\n```\n\nIt will work with all `foo` properties.\n\n## License\n\nMIT\n",
+  "readmeFilename": "README.md",
+  "homepage": "https://github.com/isquariel/rework-clone",
+  "_id": "rework-clone@0.1.0",
+  "dist": {
+    "shasum": "62b399dbbb0302281ddbb74f59a218a51df43e85"
+  },
+  "_from": "rework-clone@",
+  "_resolved": "https://registry.npmjs.org/rework-clone/-/rework-clone-0.1.0.tgz"
+}

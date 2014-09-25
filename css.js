@@ -1,5 +1,6 @@
 var rework = require('rework')
   , npm = require('rework-npm')
+  , bower = require('rework-bower')
   , vars = require('rework-vars')
   , assets = require('rework-assets')
   , path = require('path')
@@ -29,8 +30,9 @@ ctor.emitter = new events.EventEmitter()
 function bundle (opts) {
   var resolvedEntry = path.resolve(process.cwd(), opts.entry)
     , css = rework(read(resolvedEntry), {source: resolvedEntry})
+    , pkgmgr = opts.bower ? bower : npm
 
-  css.use(npm({
+  css.use(pkgmgr({
     root: path.dirname(resolvedEntry),
     prefilter: prefilter
   }))
