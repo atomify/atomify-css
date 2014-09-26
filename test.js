@@ -16,6 +16,18 @@ test('basic css bundling', function (t) {
   })
 })
 
+test('compiles variables', function (t){
+  t.plan(2)
+
+  var cfg = { entry: path.join(cssFixtures, 'vars.css') }
+    , correct = fs.readFileSync(path.join(cssFixtures, 'varBundle.css'), 'utf8').replace(/[\n]$/, '')
+
+  css(cfg, function (err, src) {
+    t.error(err, 'does not error')
+    t.equal(src, correct, 'compiles the correct css')
+  })
+})
+
 test('basic less bundling', function (t) {
   t.plan(1)
 
