@@ -1,0 +1,7 @@
+:root{
+  --color-danger: red;
+}
+
+body {
+  background: var(--color-danger);
+}
