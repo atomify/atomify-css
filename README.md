@@ -1,6 +1,8 @@
 atomify-css
 ===============
 
+[![Build Status](https://travis-ci.org/atomify/atomify.svg)](https://travis-ci.org/atomify/atomify)
+
 Atomic CSS - Reusable front-end styling using Rework, plugins, and Node's resolve algorithm
 
 ## Description
@@ -21,7 +23,7 @@ In its default form, atomify-css takes an `opts` object and a `callback` functio
 
 While you may use atomify-css with CSS or LESS, you cannot combine them in the same workflow. The workaround for this limitation is to preprocess everything to CSS before passing to atomify-css.
 
-### opts 
+### opts
 
 **opts.entry** - Path that will be provided to Rework as the entry point. For convenience, you may simply provide a string in place of the `opts` object, which will be treated as the `entry` property. The path will be resolved relative to `process.cwd()`.
 
@@ -87,7 +89,7 @@ We have essentially implemented the [transformKey syntax from module-deps](https
  * `"rework-default-unit"` maps to `require('rework-default-unit')`
  * `["rework-clone"]` maps to `require('rework-clone')()`
  * `["rework-plugin-inline", "src/assets"]` maps to `require('rework-plugin-inline')('src/assets')`
- 
+
 In plain English, a string will simply be passed to `require()`, while an array will pass the first element to `require()` and call the resulting function with any remaining elements from the array.
 
 ## Examples
