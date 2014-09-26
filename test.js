@@ -79,6 +79,21 @@ test('css bundling with variables from a json file', function (t) {
     })
 })
 
+test.only('handling error from a json file malformed', function (t) {
+    t.plan(4)
+
+    var cfg = { entries: [ path.join(cssFixtures, 'entry-with-var.css') ],
+            variables: path.join(cssFixtures, 'variables-malformed.json')
+        };
+
+    css(cfg, function (err) {
+        t.ok(err instanceof Error, 'called callback with error');
+        t.equal(err.message.indexOf('Unable to parse') > -1, true);
+        t.equal(err.message.indexOf('variables-malformed.json') > -1, true);
+        t.equal(err.message.indexOf("Unexpected token '") > -1, true);
+    })
+})
+
 test('transformation', function (t) {
   t.plan(1)
 
