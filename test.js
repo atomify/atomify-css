@@ -112,15 +112,17 @@ test('providing output property and callback writes file and calls callback', fu
 })
 
 test('opts.debug generates sourcemap', function (t) {
-  t.plan(1)
+  t.plan(2)
 
   var cfg = {
       entry: path.join(cssFixtures, 'entry.css')
       , debug: true
     }
-    , correct = fs.readFileSync(path.join(cssFixtures, 'bundle-with-sourcemap.css'), 'utf8')
+    // remove the trailing new line b/c rework tries to minimize its output
+    , correct = fs.readFileSync(path.join(cssFixtures, 'bundle-with-sourcemap.css'), 'utf8').replace(/[\n]$/, '')
 
   css(cfg, function (err, src) {
+    t.error(err)
     t.equal(src, correct)
   })
 })
@@ -140,22 +142,23 @@ test('opts.compress compresses output', function (t) {
 })
 
 test('opts.debug and opts.compress generates sourcemap and compresses', function (t) {
-  t.plan(1)
+  t.plan(2)
 
   var cfg = {
       entry: path.join(cssFixtures, 'entry.css')
       , debug: true
       , compress: true
     }
-    , correct = fs.readFileSync(path.join(cssFixtures, 'bundle-compressed-with-sourcemap.css'), 'utf8')
+    , correct = fs.readFileSync(path.join(cssFixtures, 'bundle-compressed-with-sourcemap.css'), 'utf8').replace(/[\n]$/, '')
 
   css(cfg, function (err, src) {
+    t.error(err)
     t.equal(src, correct)
   })
 })
 
 test('opts.assets', function (t) {
-  t.plan(1)
+  t.plan(2)
 
   var cfg = {
       entry: path.join(cssFixtures, 'entry-with-asset.css')
@@ -164,9 +167,10 @@ test('opts.assets', function (t) {
         , prefix: 'assets/images/'
       }
     }
-    , correct = fs.readFileSync(path.join(cssFixtures, 'bundle-with-asset.css'), 'utf8')
+    , correct = fs.readFileSync(path.join(cssFixtures, 'bundle-with-asset.css'), 'utf8').replace(/[\n]$/, '')
 
   css(cfg, function (err, src) {
+    t.error(err)
     t.equal(src, correct)
   })
 })
