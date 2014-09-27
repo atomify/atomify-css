@@ -8,6 +8,10 @@ var less = require('npm-less/less')
 
 var ctor = module.exports = function (opts, cb) {
   assetsConfig = opts.assets
+  if (assetsConfig) {
+    // Add default error handler
+    assetsConfig.onError = assetsConfig.onError || onError
+  }
 
   less(path.resolve(process.cwd(), opts.entry), {preprocess: preprocess}, function (err, output) {
     if (err) return process.nextTick(function () { cb(err) })
@@ -29,3 +33,8 @@ function preprocess (file, src) {
 
   return src
 }
+
+function onError(err) {
+  console.error('asset not copied:', err.path)
+}
+
