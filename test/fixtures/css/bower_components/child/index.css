@@ -1,7 +1,0 @@
-.child {
-  width: 100;
-}
-
-@import "./other.css";
-
-@import "grandchild";

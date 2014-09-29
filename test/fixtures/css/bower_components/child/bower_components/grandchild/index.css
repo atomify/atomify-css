@@ -1,5 +1,0 @@
-.grandchild {
-  width: math(5 * 5px);
-}
-
-@import "./nested/thing.css";

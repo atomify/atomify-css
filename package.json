@@ -39,6 +39,7 @@
   },
   "devDependencies": {
     "rework-plugin-inline": "^1.0.1",
+    "sane-scaffold": "^1.0.5",
     "tap-spec": "^0.1.5",
     "tape": "^2.5.0"
   }
