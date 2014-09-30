@@ -9,6 +9,10 @@ var less = require('npm-less/less')
 
 var ctor = module.exports = function (opts, cb) {
   assetsConfig = opts.assets
+  if (assetsConfig) {
+    // Add default error handler
+    assetsConfig.onError = assetsConfig.onError || onError
+  }
 
   if(opts.bower) less = bower
 
@@ -32,3 +36,8 @@ function preprocess (file, src) {
 
   return src
 }
+
+function onError(err) {
+  console.error('asset not copied:', err.path)
+}
+
