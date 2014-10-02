@@ -9,10 +9,10 @@ var rework = require('rework')
   , pkg = require('package-lookup')
   , read = function (f) {
     return fs.readFileSync(f, 'utf8')
-  };
+  }
 
 var ctor = module.exports = function (opts, cb) {
-  opts = opts || {};
+  opts = opts || {}
 
   var src
   try {
@@ -27,34 +27,34 @@ var ctor = module.exports = function (opts, cb) {
 ctor.emitter = new events.EventEmitter()
 
 function bundle (opts) {
-    var entries = [];
+    var entries = []
     
     opts.entries.forEach(function (entry) {
-        var resolvedEntry = resolveFilePath(entry);
+        var resolvedEntry = resolveFilePath(entry)
 
-        entries.push(applyRework(opts, resolvedEntry));
-    });
+        entries.push(applyRework(opts, resolvedEntry))
+    })
 
-    return entries.join(opts.compress ? '' : '\n');
+    return entries.join(opts.compress ? '' : '\n')
 }
 
 function applyRework (opts, resolvedEntry) {
     var css = rework(read(resolvedEntry), {source: resolvedEntry}),
-        dirName = path.dirname(resolvedEntry);
+        dirName = path.dirname(resolvedEntry)
 
     css.use(npm({
         root: dirName,
         prefilter: prefilter
-    }));
+    }))
 
-    applyReworkVars(css, opts);
-    applyReworkAssets (css, opts, dirName);
-    applyReworkPlugins(css, opts, dirName);
+    applyReworkVars(css, opts)
+    applyReworkAssets (css, opts, dirName)
+    applyReworkPlugins(css, opts, dirName)
 
     return css.toString({
         sourcemap: opts.debug || opts.sourcemap
         , compress: opts.compress
-    });
+    })
 }
 
 function applyReworkAssets (css, opts, dirName) {
@@ -78,25 +78,25 @@ function applyReworkPlugins(css, opts, dirName) {
 
 function applyReworkVars(css, opts) {
     if (typeof opts.variables === 'string') {
-        var variablesFilePath = resolveFilePath(opts.variables);
-        opts.variables = readJSON(variablesFilePath);
+        var variablesFilePath = resolveFilePath(opts.variables)
+        opts.variables = readJSON(variablesFilePath)
     }
     // even if variables were not provided
     // use rework-vars to process default values
-    css.use(vars(opts.variables));
+    css.use(vars({ map: opts.variables }))
 }
 
 function resolveFilePath(filePath) {
-    return path.resolve(process.cwd(), filePath);
+    return path.resolve(process.cwd(), filePath)
 }
 
 function readJSON (filepath) {
-    var src = read(filepath);
+    var src = read(filepath)
 
     try {
-        return JSON.parse(src);
+        return JSON.parse(src)
     } catch(e) {
-        throw new Error('Unable to parse "' + filepath + '" file (' + e.message + ').', e);
+        throw new Error('Unable to parse "' + filepath + '" file (' + e.message + ').', e)
     }
 }
 

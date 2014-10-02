@@ -20,7 +20,7 @@ test('basic multiple css bundling', function (t) {
     t.plan(1)
 
     var cfg = { entries: [ path.join(cssFixtures, 'entry.css'), path.join(cssFixtures, 'entry-multi.css')]  }
-        , correct = fs.readFileSync(path.join(cssFixtures, 'bundle-multi.css'), 'utf8');
+        , correct = fs.readFileSync(path.join(cssFixtures, 'bundle-multi.css'), 'utf8')
 
     css(cfg, function (err, src) {
         t.equal(src, correct)
@@ -71,7 +71,7 @@ test('css bundling with variables', function (t) {
                 headerColor: '#4170CC'
             }
         }
-        , correct = fs.readFileSync(path.join(cssFixtures, 'bundle-with-var.css'), 'utf8');
+        , correct = fs.readFileSync(path.join(cssFixtures, 'bundle-with-var.css'), 'utf8')
 
     css(cfg, function (err, src) {
         t.equal(src, correct)
@@ -84,25 +84,25 @@ test('css bundling with variables from a json file', function (t) {
     var cfg = { entries: [ path.join(cssFixtures, 'entry-with-var.css') ],
             variables: path.join(cssFixtures, 'variables.json')
         }
-        , correct = fs.readFileSync(path.join(cssFixtures, 'bundle-with-var.css'), 'utf8');
+        , correct = fs.readFileSync(path.join(cssFixtures, 'bundle-with-var.css'), 'utf8')
 
     css(cfg, function (err, src) {
         t.equal(src, correct)
     })
 })
 
-test.only('handling error from a json file malformed', function (t) {
+test('handling error from a json file malformed', function (t) {
     t.plan(4)
 
     var cfg = { entries: [ path.join(cssFixtures, 'entry-with-var.css') ],
             variables: path.join(cssFixtures, 'variables-malformed.json')
-        };
+        }
 
     css(cfg, function (err) {
-        t.ok(err instanceof Error, 'called callback with error');
-        t.equal(err.message.indexOf('Unable to parse') > -1, true);
-        t.equal(err.message.indexOf('variables-malformed.json') > -1, true);
-        t.equal(err.message.indexOf("Unexpected token '") > -1, true);
+        t.ok(err instanceof Error, 'called callback with error')
+        t.equal(err.message.indexOf('Unable to parse') > -1, true)
+        t.equal(err.message.indexOf('variables-malformed.json') > -1, true)
+        t.equal(err.message.indexOf("Unexpected token '") > -1, true)
     })
 })
 
