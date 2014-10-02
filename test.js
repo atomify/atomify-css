@@ -57,7 +57,7 @@ test('css bundling with variables', function (t) {
     })
 })
 
-test.only('css bundling with variables from a json file', function (t) {
+test('css bundling with variables from a json file', function (t) {
     t.plan(1)
 
     var cfg = { entries: [ path.join(cssFixtures, 'entry-with-var.css') ],
