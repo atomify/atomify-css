@@ -1,87 +1,87 @@
 var s = require('sane-scaffold')
-	, fs = require('fs')
-	, path = require('path')
-	, files = {}
-	, pending = 2
+  , fs = require('fs')
+  , path = require('path')
+  , files = {}
+  , pending = 2
 
 module.exports = function(cb){
 
-	if( fs.existsSync( path.join(__dirname, '/test/fixtures/css/bower_components') )
-		&& fs.existsSync( path.join(__dirname, '/test/fixtures/less/bower_components') ) ){
-		return cb()
-	}
+  if( fs.existsSync( path.join(__dirname, 'test', 'fixtures', 'css', 'bower_components') )
+    && fs.existsSync( path.join(__dirname, 'test', 'fixtures', 'less', 'bower_components') ) ){
+    return cb()
+  }
 
-	s
-		.start('./test/fixtures/css')
-		.directory('bower_components', function(dir){
-			dir.directory('child', buildChild)
-			dir.directory('foo', function(dir){
-				dir.file('package.json', files['fixtures/css/bower_components/foo/package.json'])
-				dir.file('index.scss', files['fixtures/css/bower_components/foo/index.scss'])
-			})
+  s
+    .start('./test/fixtures/css')
+    .directory('bower_components', function(dir){
+      dir.directory('child', buildChild)
+      dir.directory('foo', function(dir){
+        dir.file('package.json', files['fixtures/css/bower_components/foo/package.json'])
+        dir.file('index.scss', files['fixtures/css/bower_components/foo/index.scss'])
+      })
 
-		})
-		.done(function (){
-			done(cb)
-		})
+    })
+    .done(function (){
+      done(cb)
+    })
 
-	s
-		.start('./test/fixtures/less')
-		.directory('bower_components', function(dir){
-			dir.directory('foo', function(dir){
-				dir.file('index.less', files['fixtures/less/bower_components/foo/index.less'])
-			})
-		})
-		.done(function (){
-			done(cb)
-		})
+  s
+    .start('./test/fixtures/less')
+    .directory('bower_components', function(dir){
+      dir.directory('foo', function(dir){
+        dir.file('index.less', files['fixtures/less/bower_components/foo/index.less'])
+      })
+    })
+    .done(function (){
+      done(cb)
+    })
 
 }
 
 function done(cb){
-	if(!--pending) cb()
+  if(!--pending) cb()
 }
 
 function buildChild(dir){
-	dir.file('bower.json', files['fixtures/css/bower_components/child/bower.json'])
-	dir.file('index.css', files['fixtures/css/bower_components/child/index.css'])
-	dir.file('other.css', files['fixtures/css/bower_components/child/other.css'])
-	dir.file('package.json', files['fixtures/css/bower_components/child/package.json'])
+  dir.file('bower.json', files['fixtures/css/bower_components/child/bower.json'])
+  dir.file('index.css', files['fixtures/css/bower_components/child/index.css'])
+  dir.file('other.css', files['fixtures/css/bower_components/child/other.css'])
+  dir.file('package.json', files['fixtures/css/bower_components/child/package.json'])
 
-	dir.directory('bower_components', function(dir){
-		dir.directory('grandchild', buildGrandchild)
-	})
+  dir.directory('bower_components', function(dir){
+    dir.directory('grandchild', buildGrandchild)
+  })
 
-	dir.directory('node_modules', function(dir){
-		dir.directory('rework-default-unit', function(dir){
-			dir.file('index.js', files['fixtures/css/bower_components/child/node_modules/rework-default-unit/index.js'])
-			dir.directory('node_modules', function(dir){
-				dir.directory('rework-visit', function(dir){
-					dir.file('index.js', files['fixtures/css/bower_components/child/node_modules/rework-default-unit/node_modules/rework-visit/index.js'])
-				})
-			})
-		})
-	})
+  dir.directory('node_modules', function(dir){
+    dir.directory('rework-default-unit', function(dir){
+      dir.file('index.js', files['fixtures/css/bower_components/child/node_modules/rework-default-unit/index.js'])
+      dir.directory('node_modules', function(dir){
+        dir.directory('rework-visit', function(dir){
+          dir.file('index.js', files['fixtures/css/bower_components/child/node_modules/rework-default-unit/node_modules/rework-visit/index.js'])
+        })
+      })
+    })
+  })
 }
 
 function buildGrandchild(dir){
-	dir.file('index.css', files['fixtures/css/bower_components/child/bower_components/grandchild/index.css'])
-	dir.file('package.json', files['fixtures/css/bower_components/child/bower_components/grandchild/package.json'])
+  dir.file('index.css', files['fixtures/css/bower_components/child/bower_components/grandchild/index.css'])
+  dir.file('package.json', files['fixtures/css/bower_components/child/bower_components/grandchild/package.json'])
 
-	dir.directory('nested', function(dir){
-		dir.file('thing.css', files['fixtures/css/bower_components/child/bower_components/grandchild/nested/thing.css'])
-	})
+  dir.directory('nested', function(dir){
+    dir.file('thing.css', files['fixtures/css/bower_components/child/bower_components/grandchild/nested/thing.css'])
+  })
 
-	dir.directory('node_modules', function(dir){
-		dir.directory('rework-math', function(dir){
-			dir.file('index.js', files['fixtures/css/bower_components/child/bower_components/grandchild/node_modules/rework-math/index.js'])
-			dir.directory('node_modules', function(dir){
-				dir.directory('rework-visit', function(dir){
-					dir.file('index.js', files['fixtures/css/bower_components/child/bower_components/grandchild/node_modules/rework-math/node_modules/rework-visit/index.js'])
-				})
-			})
-		})
-	})
+  dir.directory('node_modules', function(dir){
+    dir.directory('rework-math', function(dir){
+      dir.file('index.js', files['fixtures/css/bower_components/child/bower_components/grandchild/node_modules/rework-math/index.js'])
+      dir.directory('node_modules', function(dir){
+        dir.directory('rework-visit', function(dir){
+          dir.file('index.js', files['fixtures/css/bower_components/child/bower_components/grandchild/node_modules/rework-math/node_modules/rework-visit/index.js'])
+        })
+      })
+    })
+  })
 }
 
 
