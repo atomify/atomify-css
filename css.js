@@ -28,39 +28,78 @@ var ctor = module.exports = function (opts, cb) {
 ctor.emitter = new events.EventEmitter()
 
 function bundle (opts) {
-  var resolvedEntry = path.resolve(process.cwd(), opts.entry)
-    , css = rework(read(resolvedEntry), {source: resolvedEntry})
-    , pkgmgr = opts.bower ? bower : npm
+    var entries = []
+    
+    opts.entries.forEach(function (entry) {
+        var resolvedEntry = resolveFilePath(entry)
 
-  css.use(pkgmgr({
-    root: path.dirname(resolvedEntry),
-    prefilter: prefilter
-  }))
-
-  // even if variables were not provided
-  // use rework-vars to process default values
-  css.use(vars(opts.variables))
-
-  if (opts.assets) {
-    css.use(assets({
-      src: path.dirname(resolvedEntry)
-      , dest: opts.assets.dest || ''
-      , prefix: opts.assets.prefix || ''
-      , retainName: opts.assets.retainName || ''
-    }))
-  }
-
-  // utilize any custom rework plugins provided
-  if (opts.plugins) {
-    opts.plugins.forEach(function (plugin) {
-      css.use(getPlugin(plugin, path.dirname(resolvedEntry)))
+        entries.push(applyRework(opts, resolvedEntry))
     })
-  }
 
-  return css.toString({
-    sourcemap: opts.debug || opts.sourcemap
-    , compress: opts.compress
-  })
+    return entries.join(opts.compress ? '' : '\n')
+}
+
+function applyRework (opts, resolvedEntry) {
+    var css = rework(read(resolvedEntry), {source: resolvedEntry})
+        , dirName = path.dirname(resolvedEntry)
+        , pkgmgr = opts.bower ? bower : npm
+
+    css.use(pkgmgr({
+        root: dirName,
+        prefilter: prefilter
+    }))
+
+    applyReworkVars(css, opts)
+    applyReworkAssets (css, opts, dirName)
+    applyReworkPlugins(css, opts, dirName)
+
+    return css.toString({
+        sourcemap: opts.debug || opts.sourcemap
+        , compress: opts.compress
+    })
+}
+
+function applyReworkAssets (css, opts, dirName) {
+    if (opts.assets) {
+        css.use(assets({
+            src: dirName
+            , dest: opts.assets.dest || ''
+            , prefix: opts.assets.prefix || ''
+            , retainName: opts.assets.retainName || ''
+        }))
+    }
+}
+
+function applyReworkPlugins(css, opts, dirName) {
+    if (opts.plugins) {
+        opts.plugins.forEach(function (plugin) {
+            css.use(getPlugin(plugin, dirName))
+        })
+    }
+}
+
+function applyReworkVars(css, opts) {
+    if (typeof opts.variables === 'string') {
+        var variablesFilePath = resolveFilePath(opts.variables)
+        opts.variables = readJSON(variablesFilePath)
+    }
+    // even if variables were not provided
+    // use rework-vars to process default values
+    css.use(vars({ map: opts.variables }))
+}
+
+function resolveFilePath(filePath) {
+    return path.resolve(process.cwd(), filePath)
+}
+
+function readJSON (filepath) {
+    var src = read(filepath)
+
+    try {
+        return JSON.parse(src)
+    } catch(e) {
+        throw new Error('Unable to parse "' + filepath + '" file (' + e.message + ').', e)
+    }
 }
 
 function getPlugin (plugin, basedir) {
