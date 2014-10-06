@@ -1,5 +1,6 @@
 var rework = require('rework')
   , npm = require('rework-npm')
+  , bower = require('rework-bower')
   , vars = require('rework-vars')
   , assets = require('rework-assets')
   , path = require('path')
@@ -39,10 +40,11 @@ function bundle (opts) {
 }
 
 function applyRework (opts, resolvedEntry) {
-    var css = rework(read(resolvedEntry), {source: resolvedEntry}),
-        dirName = path.dirname(resolvedEntry)
+    var css = rework(read(resolvedEntry), {source: resolvedEntry})
+        , dirName = path.dirname(resolvedEntry)
+        , pkgmgr = opts.bower ? bower : npm
 
-    css.use(npm({
+    css.use(pkgmgr({
         root: dirName,
         prefilter: prefilter
     }))
