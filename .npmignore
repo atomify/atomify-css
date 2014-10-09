@@ -5,3 +5,9 @@ test
 .npmignore
 .travis.yml
 test.js
+
+.editorconfig
+.jscsrc
+.jshint*
+CHANGELOG.*
+CONTRIBUTING.*
