@@ -46,7 +46,7 @@ function applyRework (opts, resolvedEntry) {
 
     css.use(pkgmgr({
         root: dirName,
-        prefilter: prefilter
+        prefilter: buildPrefilter(opts.plugins)
     }))
 
     applyReworkVars(css, opts)
@@ -123,18 +123,20 @@ function getPlugin (plugin, basedir) {
   }
 }
 
-function prefilter (src, filename) {
-  var config = pkg.resolve(filename)
+function buildPrefilter (plugins) {
+  return function (src, filename) {
+    var config = pkg.resolve(filename)
 
-  ctor.emitter.emit('file', filename)
+    ctor.emitter.emit('file', filename)
 
-  if (config && config.atomify && config.atomify.css && config.atomify.css.plugins) {
-    var css = rework(src);
-    config.atomify.css.plugins.forEach(function (plugin) {
-      css.use(getPlugin(plugin, path.dirname(filename)))
-    })
-    return css.toString()
+    var customPlugins = config && config.atomify && config.atomify.css && config.atomify.css.plugins
+    if (customPlugins && JSON.stringify(customPlugins) !== JSON.stringify(plugins)) {
+      var css = rework(src)
+      customPlugins.forEach(function (plugin) {
+        css.use(getPlugin(plugin, path.dirname(filename)))
+      })
+      return css.toString()
+    }
+    return src
   }
-
-  return src
 }
