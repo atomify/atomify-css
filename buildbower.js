@@ -1,3 +1,5 @@
+'use strict';
+
 var s = require('sane-scaffold')
   , fs = require('fs')
   , path = require('path')
@@ -5,11 +7,6 @@ var s = require('sane-scaffold')
   , pending = 2
 
 module.exports = function(cb){
-
-  if( fs.existsSync( path.join(__dirname, 'test', 'fixtures', 'css', 'bower_components') )
-    && fs.existsSync( path.join(__dirname, 'test', 'fixtures', 'less', 'bower_components') ) ){
-    return cb()
-  }
 
   s
     .start('./test/fixtures/css')
