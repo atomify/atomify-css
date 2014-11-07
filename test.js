@@ -1,3 +1,5 @@
+'use strict';
+
 var test = require('tape')
     , fs = require('fs')
     , path = require('path')
@@ -6,7 +8,7 @@ var test = require('tape')
     , lessFixtures = __dirname + '/test/fixtures/less/'
     , buildbower = require('./buildbower')
 
-buildbower(runTests);
+buildbower(runTests)
 
 function runTests() {
 
