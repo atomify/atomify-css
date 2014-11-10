@@ -1,3 +1,5 @@
+'use strict';
+
 var css = require('./css')
   , less = require('./less')
   , fs = require('fs')
@@ -12,7 +14,8 @@ module.exports = function (opts, cb) {
 
   if (opts.entry && opts.entry.substr(-4) === 'less') {
     less(opts, complete)
-  } else {
+  }
+  else {
     css(opts, complete)
   }
 

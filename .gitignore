@@ -3,3 +3,5 @@ node_modules/*
 .idea
 test/fixtures/css/assets/
 test/fixtures/less/assets/
+test/fixtures/css/bower_components
+test/fixtures/less/bower_components
