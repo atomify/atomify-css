@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.2.1
+* update dependencies
+* fix some wonky tests
+* tests now error if the callback throws an error
+
 ## 3.2.0
 * Adds support for multiple entry files.
 * Adds support for specifying variables with a JSON file
