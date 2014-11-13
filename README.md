@@ -3,6 +3,8 @@ atomify-css
 
 [![Build Status](https://travis-ci.org/atomify/atomify-css.svg?branch=master)](https://travis-ci.org/atomify/atomify-css)
 
+[![Dependencies Up-to-date](https://david-dm.org/atomify/atomify-css.png)](https://david-dm.org/atomify/atomify-css)
+
 Atomic CSS - Reusable front-end styling using Rework, plugins, and Node's resolve algorithm
 
 ## Description
