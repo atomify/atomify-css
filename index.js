@@ -19,7 +19,7 @@ module.exports = function (opts, cb) {
     css(opts, complete)
   }
 
-  function complete (err, src) {
+  function complete (err, src, resourcepaths) {
     if (opts.transform && !err) src = opts.transform(src)
 
     if (opts.output) {
@@ -37,7 +37,7 @@ module.exports = function (opts, cb) {
           if (err) return _cb(err)
 
           writeFile(null, src)
-          _cb(null, src)
+          _cb(null, src, resourcepaths)
         }
       } else {
         cb = writeFile

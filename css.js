@@ -10,7 +10,8 @@ var rework = require('rework')
   , pkg = require('package-lookup')
   , read = function (f) {
     return fs.readFileSync(f, 'utf8')
-  }
+  },
+  ressourcepaths = { cssfiles: [], assetfiles: [] }
 
 var ctor = module.exports = function (opts, cb) {
   opts = opts || {}
@@ -22,14 +23,14 @@ var ctor = module.exports = function (opts, cb) {
     return process.nextTick(function () { cb(err) })
   }
 
-  process.nextTick(function () { cb(null, src) })
+  process.nextTick(function () { cb(null, src, ressourcepaths) })
 }
 
 ctor.emitter = new events.EventEmitter()
 
 function bundle (opts) {
     var entries = []
-    
+
     opts.entries.forEach(function (entry) {
         var resolvedEntry = resolveFilePath(entry)
 
@@ -66,6 +67,9 @@ function applyReworkAssets (css, opts, dirName) {
             , dest: opts.assets.dest || ''
             , prefix: opts.assets.prefix || ''
             , retainName: opts.assets.retainName || ''
+            , onFile: function onFile(filename) {
+              ressourcepaths.assetfiles.push(filename);
+            }
         }))
     }
 }
@@ -124,6 +128,7 @@ function getPlugin (plugin, basedir) {
 }
 
 function prefilter (src, filename) {
+  ressourcepaths.cssfiles.push(filename);
   var config = pkg.resolve(filename)
 
   ctor.emitter.emit('file', filename)
