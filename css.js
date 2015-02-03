@@ -68,7 +68,7 @@ function applyReworkAssets (css, opts, dirName) {
             , prefix: opts.assets.prefix || ''
             , retainName: opts.assets.retainName || ''
             , onFile: function onFile(filename) {
-              ressourcepaths.assetfiles.push(filename);
+              ressourcepaths.assetfiles.push(filename)
             }
         }))
     }
