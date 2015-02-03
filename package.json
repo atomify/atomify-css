@@ -31,7 +31,7 @@
     "resolve": "^1.1.0",
     "resrcify": "^1.0.1",
     "rework": "^1.0.0",
-    "rework-assets": "git://github.com/serapath/rework-assets",
+    "rework-assets": "^1.0.0",
     "rework-bower": "^0.0.1",
     "rework-npm": "^1.0.0",
     "rework-vars": "^3.1.1",
