@@ -41,6 +41,8 @@ While you may use atomify-css with CSS or LESS, you cannot combine them in the s
 
 **opts.debug** or **opts.sourcemap** - Passed to the `toString()` method of Rework to generate source maps if `true`. Also provides additional CLI output, if applicable.
 
+**opts.autoprefixer** - Accepts all options objects that can be passed to [autoprefixer](https://github.com/postcss/autoprefixer-core#usage)
+
 **opts.compress** - Compress (remove whitespace from) CSS output.
 
 **opts.assets** - One of the challenges with writing truly modular code is that your stylesheets often refer to assets that need to be accessible from your final bundle. Configuring this option solves that problem by detecting asset paths in your CSS files, copying the assets to a new location, and rewriting the references to them to use the new paths. Paths in `url()` statements will be processed according to your configuration.

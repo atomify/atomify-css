@@ -21,7 +21,10 @@ module.exports = function (opts, cb) {
 
   function complete (err, src) {
     if (opts.transform && !err) src = opts.transform(src)
-
+    if (opts.autoprefixer) {
+      var autoprefixer = require('autoprefixer-core');
+      src = autoprefixer(opts.autoprefixer).process(src).css;
+    }
     if (opts.output) {
       // we definitely have to write the file
       var outputPath = path.resolve(process.cwd(), opts.output)
