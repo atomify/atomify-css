@@ -28,7 +28,7 @@
     "mkdirp": "^0.5.0",
     "npm-less": "^1.0.0",
     "package-lookup": "^0.1.2",
-    "resolve": "^1.0.0",
+    "resolve": "^1.1.0",
     "resrcify": "^1.0.1",
     "rework": "^1.0.0",
     "rework-assets": "^1.0.0",
