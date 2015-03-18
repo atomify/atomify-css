@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.3.0
+* add css & assets watch mode for livereload (@serapath)
+* add autoprefixer (@serapath)
+* code style cleanup
+* now testing on iojs and node 0.12
+
 ## 3.2.1
 * update dependencies
 * fix some wonky tests
