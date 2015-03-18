@@ -41,7 +41,7 @@ While you may use atomify-css with CSS or LESS, you cannot combine them in the s
 
 **opts.debug** or **opts.sourcemap** - Passed to the `toString()` method of Rework to generate source maps if `true`. Also provides additional CLI output, if applicable.
 
-**opts.autoprefixer** - Accepts all options objects that can be passed to [autoprefixer](https://github.com/postcss/autoprefixer-core#usage)
+**opts.autoprefixer** - Accepts all options objects that can be passed to [autoprefixer](https://github.com/postcss/autoprefixer-core#usage). Set to any truthy value to enable autoprefixer.
 
 **opts.compress** - Compress (remove whitespace from) CSS output.
 
