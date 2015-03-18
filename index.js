@@ -6,6 +6,7 @@ var css = require('./css')
   , path = require('path')
   , mkdirp = require('mkdirp')
   , writer = require('write-to-path')
+  , autoprefixer = require('autoprefixer-core')
 
 module.exports = function (opts, cb) {
   if (typeof opts === 'string') opts = {entry: opts};
@@ -22,7 +23,6 @@ module.exports = function (opts, cb) {
   function complete (err, src) {
     if (opts.transform && !err) src = opts.transform(src)
     if (opts.autoprefixer) {
-      var autoprefixer = require('autoprefixer-core');
       src = autoprefixer(opts.autoprefixer).process(src).css;
     }
     if (opts.output) {
