@@ -378,4 +378,28 @@ function runTests() {
     }, 250)
   })
 
+  test('opts.autoprefixer works', function(t){
+    t.plan(2)
+
+    var cfg = {entry: path.join(cssFixtures, 'entry-for-prefixing.css'), autoprefixer: true}
+    , correct = fs.readFileSync(path.join(cssFixtures, 'bundle-with-prefixes.css'), 'utf8').trim()
+
+    css(cfg, function (err, src) {
+      t.error(err, 'does not error')
+      t.equal(src, correct)
+    })
+  })
+
+  test('opts.autoprefixer with options works', function(t){
+    t.plan(2)
+
+    var cfg = {entry: path.join(cssFixtures, 'entry-for-prefixing.css'), autoprefixer: {browsers: 'chrome >= 20, ie >=10'}}
+    , correct = fs.readFileSync(path.join(cssFixtures, 'bundle-with-prefixes.css'), 'utf8').trim()
+
+    css(cfg, function (err, src) {
+      t.error(err, 'does not error')
+      t.equal(src, correct)
+    })
+  })
+
 }
