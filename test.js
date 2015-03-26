@@ -402,4 +402,14 @@ function runTests() {
     })
   })
 
+  test('autoprefixer errors are handled', function(t){
+    var cfg = {entry: path.join(cssFixtures, 'entry-for-prefixing.css'), autoprefixer: {browsers: 'wrong'}}
+
+    t.plan(1)
+
+    css(cfg, function (err, src) {
+      t.ok(err, 'calls the callback with an error')
+    })
+  })
+
 }

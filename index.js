@@ -28,7 +28,15 @@ module.exports = function atomifyCSS(opts, cb) {
 
     if (opts.transform && !err) src = opts.transform(src)
     if (opts.autoprefixer) {
-      src = autoprefixer(typeof opts.autoprefixer === 'object' ? opts.autoprefixer : null).process(src).css
+      try {
+        src = autoprefixer(typeof opts.autoprefixer === 'object'
+          ? opts.autoprefixer
+          : null
+          ).process(src).css
+      }
+      catch (e){
+        err = e
+      }
     }
     if (opts.output) {
       // we definitely have to write the file
