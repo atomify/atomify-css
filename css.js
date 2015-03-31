@@ -13,7 +13,7 @@ var rework = require('rework')
   , read = function read(f) {
     return fs.readFileSync(f, 'utf8')
   }
-  , ressourcepaths = {cssfiles: [], assetfiles: []}
+  , resourcePaths = {cssfiles: [], assetfiles: []}
   , ctor
 
 ctor = module.exports = function useRework(opts, cb) {
@@ -31,7 +31,7 @@ ctor = module.exports = function useRework(opts, cb) {
   }
 
   setImmediate(function asyncifySuccessCallback() {
-    cb(null, src, ressourcepaths)
+    cb(null, src, resourcePaths)
   })
 }
 
@@ -71,7 +71,7 @@ function applyReworkAssets(css, opts, dirName) {
       , prefix: opts.assets.prefix || ''
       , retainName: opts.assets.retainName || ''
       , onFile: function onFile(filename) {
-        ressourcepaths.assetfiles.push(filename)
+        resourcePaths.assetfiles.push(filename)
       }
     }))
   }
@@ -99,7 +99,7 @@ function prefilter(src, filename) {
   var config = pkg.resolve(filename)
     , css
 
-  ressourcepaths.cssfiles.push(filename)
+  resourcePaths.cssfiles.push(filename)
 
   ctor.emitter.emit('file', filename)
 
