@@ -27,7 +27,7 @@ module.exports = function atomifyCSS(opts, cb) {
       , _cb
 
     if (opts.transform && !err) src = opts.transform(src)
-    if (opts.autoprefixer) {
+    if (opts.autoprefixer && !err) {
       try {
         src = autoprefixer(typeof opts.autoprefixer === 'object'
           ? opts.autoprefixer
