@@ -8,7 +8,7 @@ var css = require('./css')
   , writer = require('write-to-path')
   , autoprefixer = require('autoprefixer-core')
 
-module.exports = function atomifyCSS(opts, cb) {
+module.exports = function atomifyCSS (opts, cb) {
   if (typeof opts === 'string') opts = {entry: opts}
   if (typeof cb === 'string') opts.output = cb
   if (opts.entry) opts.entries = [opts.entry]
@@ -20,7 +20,7 @@ module.exports = function atomifyCSS(opts, cb) {
     css(opts, complete)
   }
 
-  function complete(err, src, resourcepaths) {
+  function complete (err, src, resourcepaths) {
     var outputPath
       , outputDir
       , writeFile
@@ -49,7 +49,7 @@ module.exports = function atomifyCSS(opts, cb) {
       // we might need to call a callback also
       if (typeof cb === 'function') {
         _cb = cb
-        cb = function callbackWrapper(wrapperErr, wrapperSrc) {
+        cb = function callbackWrapper (wrapperErr, wrapperSrc) {
           if (wrapperErr) return _cb(wrapperErr)
 
           writeFile(null, wrapperSrc)
