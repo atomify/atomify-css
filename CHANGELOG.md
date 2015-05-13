@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.3.2
+* fix: don't run autoprefixer if there's an error. This makes error output more clear.
+
 ## 3.3.0
 * add css & assets watch mode for livereload (@serapath)
 * add autoprefixer (@serapath)
