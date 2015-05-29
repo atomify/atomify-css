@@ -7,6 +7,7 @@ var css = require('./css')
   , mkdirp = require('mkdirp')
   , writer = require('write-to-path')
   , autoprefixer = require('autoprefixer-core')
+  , postcss = require('postcss')
 
 module.exports = function atomifyCSS (opts, cb) {
   if (typeof opts === 'string') opts = {entry: opts}
@@ -29,10 +30,8 @@ module.exports = function atomifyCSS (opts, cb) {
     if (opts.transform && !err) src = opts.transform(src)
     if (opts.autoprefixer && !err) {
       try {
-        src = autoprefixer(typeof opts.autoprefixer === 'object'
-          ? opts.autoprefixer
-          : null
-          ).process(src).css
+        src = postcss([autoprefixer(typeof opts.autoprefixer === 'object' ? opts.autoprefixer : null)])
+        .process(src).css
       }
       catch (e){
         err = e
