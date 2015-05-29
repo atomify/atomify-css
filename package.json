@@ -4,8 +4,8 @@
   "description": "Atomic CSS - Reusable front-end styling using Rework, plugins, and Node's resolve algorithm",
   "main": "index.js",
   "scripts": {
-    "test": "tape test.js | tspec",
-    "tdd": "nodemon -x tape -i node_modules/ -i test/ -- test.js | tspec"
+    "test": "tape test/*.js | tspec",
+    "tdd": "nodemon -x npm -i node_modules/ -i test/fixtures/ -- test"
   },
   "repository": {
     "type": "git",

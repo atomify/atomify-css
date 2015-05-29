@@ -3,14 +3,14 @@
 var test = require('tape')
   , fs = require('fs')
   , path = require('path')
-  , css = require('./')
-  , cssFixtures = path.join(__dirname, '/test/fixtures/css/')
-  , lessFixtures = path.join(__dirname, '/test/fixtures/less/')
-  , buildbower = require('./buildbower')
+  , css = require('../')
+  , cssFixtures = path.join(__dirname, '/fixtures/css/')
+  , lessFixtures = path.join(__dirname, '/fixtures/less/')
+  , buildbower = require('../buildbower')
 
 buildbower(runTests)
 
-function runTests() {
+function runTests () {
   test('basic css bundling', function (t) {
     t.plan(2)
 
@@ -51,48 +51,44 @@ function runTests() {
   test('css bundling with variables', function (t) {
     t.plan(2)
 
-    var cfg = { entries: [ path.join(cssFixtures, 'entry-with-var.css') ],
-    variables: {
-      mainColor: '#4170BB',
-      headerColor: '#4170CC'
+    var cfg = { entries: [ path.join(cssFixtures, 'entry-with-var.css') ], variables: {
+      mainColor: '#4170BB', headerColor: '#4170CC'
     }
   }
   , correct = fs.readFileSync(path.join(cssFixtures, 'bundle-with-var.css'), 'utf8')
 
-  css(cfg, function (err, src) {
+    css(cfg, function (err, src) {
     t.error(err, 'does not error')
     t.equal(src, correct)
   })
-})
+  })
 
   test('css bundling with variables from a json file', function (t) {
     t.plan(2)
 
-    var cfg = { entries: [ path.join(cssFixtures, 'entry-with-var.css') ],
-    variables: path.join(cssFixtures, 'variables.json')
+    var cfg = { entries: [ path.join(cssFixtures, 'entry-with-var.css') ], variables: path.join(cssFixtures, 'variables.json')
   }
   , correct = fs.readFileSync(path.join(cssFixtures, 'bundle-with-var.css'), 'utf8')
 
-  css(cfg, function (err, src) {
+    css(cfg, function (err, src) {
     t.error(err, 'does not error')
     t.equal(src, correct)
   })
-})
+  })
 
   test('handling error from a json file malformed', function (t) {
     t.plan(4)
 
-    var cfg = { entries: [ path.join(cssFixtures, 'entry-with-var.css') ],
-    variables: path.join(cssFixtures, 'variables-malformed.json')
+    var cfg = { entries: [ path.join(cssFixtures, 'entry-with-var.css') ], variables: path.join(cssFixtures, 'variables-malformed.json')
   }
 
-  css(cfg, function (err) {
+    css(cfg, function (err) {
     t.ok(err instanceof Error, 'called callback with error')
     t.equal(err.message.indexOf('Unable to parse') > -1, true)
     t.equal(err.message.indexOf('variables-malformed.json') > -1, true)
     t.equal(err.message.indexOf("Unexpected token '") > -1, true)
   })
-})
+  })
 
   test('bower - basic css bundling', function (t) {
     t.plan(2)
@@ -208,7 +204,7 @@ function runTests() {
 
     if (fs.existsSync(cfg.output)) fs.unlinkSync(cfg.output)
 
-      css(cfg, function (err, src) {
+    css(cfg, function (err, src) {
         t.error(err, 'does not error')
         t.ok(fs.existsSync(cfg.output), 'file written')
         t.equal(src, correct)
@@ -224,11 +220,11 @@ function runTests() {
       // remove the trailing new line b/c rework tries to minimize its output
       , correct = fs.readFileSync(path.join(cssFixtures, 'bundle-with-sourcemap.css'), 'utf8').replace(/[\n]$/, '')
 
-      css(cfg, function (err, src) {
+    css(cfg, function (err, src) {
         t.error(err, 'does not error')
         t.equal(src, correct)
       })
-    })
+  })
 
   test('opts.compress compresses output', function (t) {
     t.plan(2)
@@ -295,7 +291,7 @@ function runTests() {
 
     var cfg = {
       entry: path.join(cssFixtures, 'entry-with-inline.css'), plugins: [
-      ['rework-plugin-inline', __dirname + '/test']
+      ['rework-plugin-inline', __dirname]
       ]
     }
     , correct = fs.readFileSync(path.join(cssFixtures, 'bundle-with-inline.css'), 'utf8')
@@ -378,7 +374,7 @@ function runTests() {
     }, 250)
   })
 
-  test('opts.autoprefixer works', function(t){
+  test('opts.autoprefixer works', function (t) {
     t.plan(2)
 
     var cfg = {entry: path.join(cssFixtures, 'entry-for-prefixing.css'), autoprefixer: true}
@@ -390,7 +386,7 @@ function runTests() {
     })
   })
 
-  test('opts.autoprefixer with options works', function(t){
+  test('opts.autoprefixer with options works', function (t) {
     t.plan(2)
 
     var cfg = {entry: path.join(cssFixtures, 'entry-for-prefixing.css'), autoprefixer: {browsers: 'chrome >= 20, ie >=10'}}
@@ -402,7 +398,7 @@ function runTests() {
     })
   })
 
-  test('autoprefixer errors are handled', function(t){
+  test('autoprefixer errors are handled', function (t) {
     var cfg = {entry: path.join(cssFixtures, 'entry-for-prefixing.css'), autoprefixer: {browsers: 'wrong'}}
 
     t.plan(1)
