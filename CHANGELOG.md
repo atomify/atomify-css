@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.3.3
+* fix: use postscss to process autoprefixer. This fixes a deprecation warning from autoprefixer.
+* internal: move test file into test dir
+* internal: add eslint
+
+
 ## 3.3.2
 * fix: don't run autoprefixer if there's an error. This makes error output more clear.
 
