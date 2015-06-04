@@ -21,7 +21,7 @@ module.exports = function atomifyCSS (opts, cb) {
     css(opts, complete)
   }
 
-  function complete (err, src, resourcepaths) {
+  function complete (err, src) {
     var outputPath
       , outputDir
       , writeFile
@@ -52,7 +52,7 @@ module.exports = function atomifyCSS (opts, cb) {
           if (wrapperErr) return _cb(wrapperErr)
 
           writeFile(null, wrapperSrc)
-          _cb(null, wrapperSrc, resourcepaths)
+          _cb(null, wrapperSrc)
         }
       }
       else {
