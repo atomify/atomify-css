@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.3.4
+* internal: removed undocumented resourcePaths feature. #46
+
 ## 3.3.3
 * fix: use postscss to process autoprefixer. This fixes a deprecation warning from autoprefixer.
 * internal: move test file into test dir
@@ -29,3 +32,4 @@
 
 ## 3.0.0
 * adds support for the new css var syntax (`--color: red` vs. the old `var-color: red`)
+
