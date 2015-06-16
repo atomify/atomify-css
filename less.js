@@ -16,7 +16,7 @@ var ctor = module.exports = function (opts, cb) {
 
   if(opts.bower) less = bower
 
-  less(path.resolve(process.cwd(), opts.entry), {preprocess: preprocess}, function (err, output) {
+  less(path.resolve(process.cwd(), opts.entry), {preprocess: preprocess, paths: opts.paths}, function (err, output) {
     if (err) return process.nextTick(function () { cb(err) })
 
     process.nextTick(function() { cb(null, output.toCSS(opts)) })

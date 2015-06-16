@@ -408,4 +408,19 @@ function runTests () {
     })
   })
 
+  test('less works with multiple root paths', function (t) {
+    t.plan(2)
+
+    var cfg = {
+        entry: path.join(lessFixtures, 'needs-external-root.less'),
+        paths: [lessFixtures, path.join(lessFixtures, 'external_root')]
+      },
+      correct = fs.readFileSync(path.join(lessFixtures, 'bundle-with-external-root.css'), 'utf8')
+
+    css(cfg, function (err, src) {
+      t.error(err, 'does not error')
+      t.equal(src, correct)
+    })
+  })
+
 }
