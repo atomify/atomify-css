@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.3.5
+* fix: LESS options can now take additional roots. #47
+
 ## 3.3.4
 * internal: removed undocumented resourcePaths feature. #46
 
