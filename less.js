@@ -1,6 +1,4 @@
-var less = require('npm-less/less')
-  , bower = require('bower-less/less')
-  , path = require('path')
+var path = require('path')
   , events = require('events')
   , resrc = require('resrcify/custom').resrc
   , regexp = /url\([\"\'](.*?)[\"\']\)/g
@@ -14,7 +12,11 @@ var ctor = module.exports = function (opts, cb) {
     assetsConfig.onError = assetsConfig.onError || onError
   }
 
-  if(opts.bower) less = bower
+  if(opts.bower) {
+    less = require('bower-less/less')
+  } else {
+    less = require('npm-less/less')
+  }
 
   less(path.resolve(process.cwd(), opts.entry), {preprocess: preprocess, paths: opts.paths}, function (err, output) {
     if (err) return process.nextTick(function () { cb(err) })
